@@ -23,11 +23,21 @@ public class MQTTHelper {
 
 
     private String clientId = "";
-    final String subscriptionTopic = "taunhatquang/f/+";
+    final String subscriptionTopic = "taunhatquang/feeds";
 
 
     final String username = "taunhatquang";
-    final String password = "aio_gTPY34ObYDdTZKWF8x244g3jdTz6";
+    final String password = "aio_CJKX17O7Yena9fLgzQJclDdRNXZc";
+
+    final String [] feeds = {
+            "humidity","temperature"
+    };
+
+//    final String subscriptionTopic = "RinnnnN/f/+";
+//
+//
+//    final String username = "RinnnnN";
+//    final String password = "aio_ODUb23Kq7XQCfkZ0L1c8OkViqmol";
 
     public MqttAndroidClient mqttAndroidClient;
 
@@ -99,18 +109,20 @@ public class MQTTHelper {
 
     private void subscribeToTopic() {
         try {
-            mqttAndroidClient.subscribe(subscriptionTopic, 0, null, new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.w("Mqtt","Subscribed!");
+            for(int i = 0; i < 2; i++){
+                mqttAndroidClient.subscribe(subscriptionTopic + "/" + feeds[i], 0, null, new IMqttActionListener() {
+                    @Override
+                    public void onSuccess(IMqttToken asyncActionToken) {
+                        Log.w("Mqtt","Subscribed!");
+                    }
 
-                }
+                    @Override
+                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                        Log.w("Mqtt", "Subscribed fail!");
+                    }
+                });
+            }
 
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.w("Mqtt", "Subscribed fail!");
-                }
-            });
 
         } catch (MqttException ex) {
             System.err.println("Exceptionst subscribing");
