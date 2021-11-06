@@ -27,10 +27,10 @@ public class MQTTHelper {
 
 
     final String username = "taunhatquang";
-    final String password = "aio_CJKX17O7Yena9fLgzQJclDdRNXZc";
+    final String password = "aio_jZMc82KALsAed802zTTGJts2P6T6";
 
     final String [] feeds = {
-            "humidity","temperature"
+            "humidity","temperature","bbc-led"
     };
 
 //    final String subscriptionTopic = "RinnnnN/f/+";
@@ -109,7 +109,7 @@ public class MQTTHelper {
 
     private void subscribeToTopic() {
         try {
-            for(int i = 0; i < 2; i++){
+            for(int i = 0; i < 3; i++){
                 mqttAndroidClient.subscribe(subscriptionTopic + "/" + feeds[i], 0, null, new IMqttActionListener() {
                     @Override
                     public void onSuccess(IMqttToken asyncActionToken) {
