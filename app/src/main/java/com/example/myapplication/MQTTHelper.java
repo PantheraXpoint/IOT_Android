@@ -26,8 +26,8 @@ public class MQTTHelper {
     final String subscriptionTopic = "taunhatquang/feeds";
 
 
-    final String username = "taunhatquang";
-    final String password = "aio_jZMc82KALsAed802zTTGJts2P6T6";
+    final String username = BuildConfig.USERNAME;
+    final String password = BuildConfig.PASSWORD;
 
     final String [] feeds = {
             "humidity","temperature","bbc-led"
