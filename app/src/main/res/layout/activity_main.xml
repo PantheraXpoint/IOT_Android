@@ -2,49 +2,58 @@
 <androidx.percentlayout.widget.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:background="#D6E7FF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtTemperature"
-        android:text="35°C"
-        android:background="#ff0000"
-        android:textSize="30dp"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:gravity="center"
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/txtTemperature"-->
+<!--        android:text="35°C"-->
+<!--        android:background="#ff0000"-->
+<!--        android:textSize="30dp"-->
+<!--        android:textColor="#ffffff"-->
+<!--        android:textStyle="bold"-->
+<!--        android:gravity="center"-->
 
-        app:layout_widthPercent="35%"
-        app:layout_heightPercent="25%"
-        app:layout_marginStartPercent="10%"
-        app:layout_marginTopPercent="10%"
-        />
+<!--        app:layout_widthPercent="35%"-->
+<!--        app:layout_heightPercent="25%"-->
+<!--        app:layout_marginStartPercent="10%"-->
+<!--        app:layout_marginTopPercent="10%"-->
+<!--        />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtHumidity"
-        android:text="70%"
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/txtHumidity"-->
+<!--        android:text="70%"-->
 
-        android:background="#0000ff"
-        android:textSize="30dp"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:gravity="center"
+<!--        android:background="#0000ff"-->
+<!--        android:textSize="30dp"-->
+<!--        android:textColor="#ffffff"-->
+<!--        android:textStyle="bold"-->
+<!--        android:gravity="center"-->
 
-        app:layout_widthPercent="35%"
-        app:layout_heightPercent="25%"
-        app:layout_marginStartPercent="55%"
-        app:layout_marginTopPercent="10%"
+<!--        app:layout_widthPercent="35%"-->
+<!--        app:layout_heightPercent="25%"-->
+<!--        app:layout_marginStartPercent="55%"-->
+<!--        app:layout_marginTopPercent="10%"-->
 
-        />
+<!--        />-->
 
 <!--    <ToggleButton-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
 <!--        android:id="@+id/btnLED"-->
 
 <!--        app:layout_widthPercent="60%"-->
@@ -101,5 +110,61 @@
 <!--        app:layout_marginTopPercent="90%"-->
 <!--        />-->
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="90%"
+        app:layout_heightPercent="75%"
+        app:layout_marginStartPercent="5%"
+        app:layout_marginTopPercent="10%"
+        android:id="@+id/lineChart" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+
+    <Button
+        android:id="@+id/button_RunData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="25%"
+        app:layout_heightPercent="10%"
+        app:layout_marginStartPercent="25%"
+        app:layout_marginTopPercent="90%"
+        android:text="RUN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/button_Stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="25%"
+        app:layout_heightPercent="10%"
+        app:layout_marginStartPercent="50%"
+        app:layout_marginTopPercent="90%"
+        android:text="STOP"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_RunData"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/button_Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            app:layout_widthPercent="25%"
+            app:layout_heightPercent="10%"
+            app:layout_marginStartPercent="75%"
+            app:layout_marginTopPercent="90%"
+        android:text="RESET"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_Stop"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 </androidx.percentlayout.widget.PercentRelativeLayout>
+
