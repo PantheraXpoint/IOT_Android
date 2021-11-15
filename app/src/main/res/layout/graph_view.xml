@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.percentlayout.widget.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/graphview"
@@ -12,106 +12,63 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ActivityController.GraphActivity">
+    tools:context=".Fragment.GraphActivity">
 
-    <GridLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/button_RunData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RUN"
-        >
-    </Button>
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_gravity="center" />
-
-
-    <Button
-    android:id="@+id/button_Stop"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="STOP"
-    >
-    </Button>
-
-    </GridLayout>
-
-
-    <TextView
-        android:text="Hello World"
-        android:textSize="16pt"
-        android:background="@color/cardview_light_background"
-        android:textAlignment="center"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/design_default_color_primary"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </TextView>
-
-<!--    Navigation bar-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/fragment_container_view"
-            android:name="com.example.ExampleFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toStartOf="@id/bottomNav"
-            android:layout_toLeftOf="@id/bottomNav">
-
-            <fragment
-                android:id="@+id/listFragment"
-                class="com.example.myapplication.Fragment.Fragment1Controller"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:layout="@layout/fragment1">
-
-            </fragment>
-
-            <fragment
-                android:id="@+id/detailFragment"
-                class="com.example.myapplication.Fragment.Fragment2Controller"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:layout="@layout/fragment2">
-            </fragment>
-
-        </androidx.fragment.app.FragmentContainerView>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/bottomNav"
-            android:layout_width="match_parent"
+        <com.github.mikephil.charting.charts.LineChart
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            app:layout_widthPercent="90%"
+            app:layout_heightPercent="75%"
+            app:layout_marginStartPercent="5%"
+            app:layout_marginTopPercent="10%"
+            android:id="@+id/lineChart" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Graph" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Index" />
-        </com.google.android.material.tabs.TabLayout>
-    </RelativeLayout>
+        <Button
+            android:id="@+id/button_RunData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="25%"
+            app:layout_heightPercent="10%"
+            app:layout_marginStartPercent="25%"
+            app:layout_marginTopPercent="90%"
+            android:text="RUN"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/button_Stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="25%"
+            app:layout_heightPercent="10%"
+            app:layout_marginStartPercent="50%"
+            app:layout_marginTopPercent="90%"
+            android:text="STOP"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_RunData"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        <Button
+            android:id="@+id/button_Reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                app:layout_widthPercent="25%"
+                app:layout_heightPercent="10%"
+                app:layout_marginStartPercent="75%"
+                app:layout_marginTopPercent="90%"
+            android:text="RESET"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_Stop"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+</androidx.percentlayout.widget.PercentRelativeLayout>
 
