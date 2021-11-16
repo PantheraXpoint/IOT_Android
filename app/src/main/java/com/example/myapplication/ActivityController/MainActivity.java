@@ -107,11 +107,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 if (topic.contains("taunhatquang/feeds/temperature")) {
-//                    txtTemp.setText(message.toString());
+                        request.setBbcTemp(message.toString());
                 }
                 if (topic.contains("taunhatquang/feeds/humidity")) {
                     Log.d("temperature", message.toString());
                     System.out.println("Hello world!!!");
+                    request.setBbcHumi(message.toString());
 //                    txtHumi.setText(message.toString());
                 }
 //                Log.d("temperature", topic);
@@ -121,8 +122,10 @@ public class MainActivity extends AppCompatActivity {
 
                     System.out.println("Hello world!!!");
                     if (message.toString().equals("1")) {
+                            request.setBbcLed(true);
 //                        btnLED.setChecked(true);
                     } else {
+                        request.setBbcLed(false);
 //                        btnLED.setChecked(false);
                     }
 
