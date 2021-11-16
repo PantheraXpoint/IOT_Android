@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".Fragment.HomeActivity">
+    tools:context=".Fragment.HomeActivity"
+    >
 
         <TextView
             android:layout_width="wrap_content"
@@ -85,16 +87,16 @@
             app:layout_marginTopPercent="10%"
             />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            android:scaleType="fitXY"
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/logo"-->
+<!--            android:scaleType="fitXY"-->
 
-            app:layout_widthPercent="20%"
-            app:layout_heightPercent="20%"
-            app:layout_marginStartPercent="0%"
-            app:layout_marginTopPercent="90%" />
+<!--            app:layout_widthPercent="20%"-->
+<!--            app:layout_heightPercent="20%"-->
+<!--            app:layout_marginStartPercent="0%"-->
+<!--            app:layout_marginTopPercent="90%" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -110,4 +112,4 @@
             app:layout_marginTopPercent="90%"
             />
 
-</FrameLayout>
+</LinearLayout>

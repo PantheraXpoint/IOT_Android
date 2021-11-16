@@ -13,6 +13,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.nio.charset.Charset;
+
 /**
  * Created by Le Trong Nhan on 18/02/2020.
  */
@@ -127,6 +129,32 @@ public class MQTTHelper {
         } catch (MqttException ex) {
             System.err.println("Exceptionst subscribing");
             ex.printStackTrace();
+        }
+    }
+
+    public void startMQTT(MqttCallbackExtended callback){
+        this.setCallback(callback);
+    }
+
+    public void sendDataMQTT(String topic, String value){
+//        MQTTMessage aMessage = new MQTTMessage();
+//        aMessage.topic = topic; aMessage.mess = value;
+//        list.add(aMessage);
+
+        MqttMessage msg = new MqttMessage();
+        msg.setId(1234);
+        msg.setQos(0);
+        msg.setRetained(true);
+
+
+
+        byte[] b = value.getBytes(Charset.forName("UTF-8"));
+        msg.setPayload(b);
+
+        try{
+            this.mqttAndroidClient.publish(topic,msg);
+        }catch (Exception e){
+
         }
     }
 }
