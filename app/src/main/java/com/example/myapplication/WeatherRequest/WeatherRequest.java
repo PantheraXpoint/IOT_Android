@@ -59,36 +59,9 @@ public class WeatherRequest {
     }
 
 
-    public void getLastdata(String url){
+    public JsonObjectRequest getLastdata(String url, Response.Listener<JSONObject> response, Response.ErrorListener errorListener){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    if(response.getString("name").equals("BBC_TEMP")){
-//                        txtTemp.setText(response.getString("last_value")+"°C");
-                        BBC_TEMP = response.getString("last_value");
-//                        circleTemp.setProgress(Integer.parseInt(response.getString("last_value").toString()));
-                    }
-                    if(response.getString("name").equals("BBC_HUMI")){
-                        BBC_HUMI = response.getString("last_value");
-//                        txtHumi.setText(response.getString("last_value")+"%");
-//                        circleHumid.setProgress(Integer.parseInt(response.getString("last_value").toString()));
-                    }
-//                    if(response.getString("name").equals("BBC_LED")){
-//                        btnLED.setChecked(true);
-
-                    //}
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }
-        );
+                Request.Method.GET, url, null, response, errorListener);
+        return jsonObjectRequest;
     }
 }

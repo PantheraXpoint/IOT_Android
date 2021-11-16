@@ -1,5 +1,8 @@
 package com.example.myapplication.ActivityController;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.myapplication.Fragment.FragmentAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +13,7 @@ import android.util.Log;
 
 import com.example.myapplication.Fragment.HomeActivity;
 import com.example.myapplication.MQTTHelper;
+import com.example.myapplication.MySingleton;
 import com.example.myapplication.R;
 import com.example.myapplication.WeatherRequest.WeatherRequest;
 import com.google.android.material.tabs.TabLayout;
@@ -17,6 +21,8 @@ import com.google.android.material.tabs.TabLayout;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -42,6 +48,38 @@ public class MainActivity extends AppCompatActivity {
 
 
     List<MQTTMessage> list = new ArrayList<>();
+
+    void getLastData(String url) {
+        JsonObjectRequest rq = request.getLastdata(url,new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if(response.getString("name").equals("BBC_TEMP")){
+//                        txtTemp.setText(response.getString("last_value")+"°C");
+                                request.setBbcTemp("last_value");
+//                        circleTemp.setProgress(Integer.parseInt(response.getString("last_value").toString()));
+                    }
+                    if(response.getString("name").equals("BBC_HUMI")){
+//                                BBC_HUMI = response.getString("last_value");
+//                        txtHumi.setText(response.getString("last_value")+"%");
+//                        circleHumid.setProgress(Integer.parseInt(response.getString("last_value").toString()));
+                    }
+//                    if(response.getString("name").equals("BBC_LED")){
+//                        btnLED.setChecked(true);
+
+                    //}
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        MySingleton.getInstance(this).addToRequestQueue(rq);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +120,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        request.getLastdata(tempUrl);
-        request.getLastdata(humiUrl);
-        request.getLastdata(ledUrl);
+        getLastData(tempUrl);
+        getLastData(humiUrl);
+        getLastData(ledUrl);
 
         setupScheduler();
         startMQTT();
     }
+
 
 
     private void startMQTT() {
