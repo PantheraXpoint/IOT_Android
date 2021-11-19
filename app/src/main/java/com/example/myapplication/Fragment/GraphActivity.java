@@ -2,10 +2,15 @@ package com.example.myapplication.Fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -54,17 +59,19 @@ public class GraphActivity  extends Fragment {
         return fragment;
     }
 
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        chart = app.findViewById(R.id.lineChart);
+    public View onCreateView( LayoutInflater inflater, @Nullable ViewGroup container,Bundle savedInstanceState)
+    {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment2, container, false);
+        chart = view.findViewById(R.id.lineChart);
         initChart();
 
         Button btStop,btStart,btReset;
-        btStart = app.findViewById(R.id.button_RunData);
-        btStop = app.findViewById(R.id.button_Stop);
-        btReset = app.findViewById(R.id.button_Reset);
+        btStart = view.findViewById(R.id.button_RunData);
+        btStop = view.findViewById(R.id.button_Stop);
+        btReset = view.findViewById(R.id.button_Reset);
 
         btStart.setOnClickListener(v->{
             startRun();
@@ -80,6 +87,14 @@ public class GraphActivity  extends Fragment {
             tem = 1;
             initChart();
         });
+        return view;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
     }
 
     private void startRun(){

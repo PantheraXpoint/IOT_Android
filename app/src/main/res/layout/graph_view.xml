@@ -1,74 +1,311 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.percentlayout.widget.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/graphview"
-    android:background="#D6E7FF"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Fragment.GraphActivity">
+    android:layout_height="match_parent">
 
-        <com.github.mikephil.charting.charts.LineChart
+        <ImageView
+            android:id="@+id/splash_imageview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_widthPercent="90%"
-            app:layout_heightPercent="75%"
-            app:layout_marginStartPercent="5%"
-            app:layout_marginTopPercent="10%"
-            android:id="@+id/lineChart" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dip"
+            android:layout_centerInParent="true"
+            android:background="#AA000000"
+            android:padding="12dip"
+            android:text="SomeText"
+            android:textColor="#ffffffff" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.9" />
+</RelativeLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<LinearLayout-->
+    <!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    tools:context=".MainActivity"-->
+    <!--    android:orientation="vertical">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:id="@+id/expressionField"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:orientation="horizontal">-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/txt_Expression"-->
+    <!--                    android:text="0"-->
+    <!--                    android:layout_height="match_parent"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_gravity="center_vertical"-->
+    <!--                    android:gravity="right|center_vertical"-->
+    <!--                    android:textSize="20sp"-->
+    <!--                    android:maxLines="3"-->
+    <!--                    android:maxLength="60"-->
+    <!--                    android:layout_weight="8">-->
+    <!--                </TextView>-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/txt_Base_1"-->
+    <!--                    android:layout_width="76dp"-->
+    <!--                    android:layout_height="match_parent"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:layout_weight="2"-->
+    <!--                    android:gravity="center"-->
+    <!--                    android:onClick="onChangeBaseClick"-->
+    <!--                    android:text="USD"-->
+    <!--                    android:textSize="20sp"-->
+    <!--                    android:textStyle="bold">-->
+
+    <!--                </TextView>-->
+    <!--        </LinearLayout>-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:id="@+id/resultField"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:layout_below="@id/expressionField"-->
+    <!--            android:orientation="horizontal">-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/txt_Exp_Result"-->
+    <!--                    android:text="0"-->
+    <!--                    android:layout_height="match_parent"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_gravity="center_vertical"-->
+    <!--                    android:gravity="right|center_vertical"-->
+    <!--                    android:textSize="20sp"-->
+    <!--                    android:maxLines="3"-->
+    <!--                    android:layout_weight="8">-->
+    <!--                </TextView>-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/txt_Base_2"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:gravity="center"-->
+    <!--                    android:layout_height="match_parent"-->
+    <!--                    android:text="USD"-->
+    <!--                    android:textSize="20sp"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                    android:layout_weight="2">-->
+    <!--                </TextView>-->
+    <!--        </LinearLayout>-->
+
+    <!--        <ListView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:id="@+id/currencyList"-->
+    <!--            android:layout_below="@id/resultField"-->
+    <!--            android:layout_above="@id/AddCurrency"-->
+    <!--            android:layout_weight="3"/>-->
+
+    <!--        <Button-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:text="@string/add_button_hint"-->
+    <!--            android:id="@+id/AddCurrency"-->
+    <!--            android:onClick="onAddButtonClick"-->
+    <!--            android:layout_above="@id/padField"-->
+    <!--            android:layout_weight="0.5"/>-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:layout_weight="2"-->
+    <!--            android:id="@+id/padField"-->
+    <!--            android:layout_alignParentBottom="true">-->
+
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="match_parent"-->
+    <!--                    android:layout_weight="3"-->
+    <!--                    android:orientation="vertical">-->
+
+    <!--                        <LinearLayout-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:orientation="horizontal"-->
+    <!--                            android:layout_weight="1">-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_7"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_8"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_9"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                        </LinearLayout>-->
+
+    <!--                        <LinearLayout-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:orientation="horizontal"-->
+    <!--                            android:layout_weight="1">-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_4"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_5"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_6"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                        </LinearLayout>-->
+
+    <!--                        <LinearLayout-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:orientation="horizontal"-->
+    <!--                            android:layout_weight="1">-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_1"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_2"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_3"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                        </LinearLayout>-->
+
+    <!--                        <LinearLayout-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:orientation="horizontal"-->
+    <!--                            android:layout_weight="1">-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_dot"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="onExpressionClick"/>-->
+    <!--                                <TextView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_0"-->
+    <!--                                    android:layout_gravity="center"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:textAlignment="center"-->
+    <!--                                    app:autoSizeTextType="uniform"-->
+    <!--                                    android:onClick="numpadClick"/>-->
+    <!--                                <ImageView-->
+    <!--                                    android:layout_width="0dp"-->
+    <!--                                    android:layout_height="match_parent"-->
+    <!--                                    android:id="@+id/btn_convert"-->
+    <!--                                    android:layout_weight="1"-->
+    <!--                                    android:src="@drawable/ic_equal"-->
+    <!--                                    android:onClick="onConvertClick"/>-->
+
+    <!--                        </LinearLayout>-->
+
+    <!--                </LinearLayout>-->
+
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="match_parent"-->
+    <!--                    android:layout_weight="1"-->
+    <!--                    android:orientation="vertical">-->
+    <!--                        <ImageView-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:id="@+id/btn_back"-->
+    <!--                            android:layout_weight="1"-->
+    <!--                            android:src="@drawable/ic_back_24px"-->
+    <!--                            android:onClick="onBackspaceClick"/>-->
+    <!--                        <ImageView-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:id="@+id/btn_add"-->
+    <!--                            android:layout_weight="1"-->
+    <!--                            android:src="@drawable/ic_add_24px"-->
+    <!--                            android:onClick="onExpressionClick"/>-->
+    <!--                        <ImageView-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:id="@+id/btn_sub"-->
+    <!--                            android:layout_weight="1"-->
+    <!--                            android:src="@drawable/ic_sub_24px"-->
+    <!--                            android:onClick="onExpressionClick"/>-->
+    <!--                        <ImageView-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:id="@+id/btn_mul"-->
+    <!--                            android:layout_weight="1"-->
+    <!--                            android:src="@drawable/ic_mul_24px"-->
+    <!--                            android:onClick="onExpressionClick"/>-->
+    <!--                        <ImageView-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="0dp"-->
+    <!--                            android:id="@+id/btn_div"-->
+    <!--                            android:layout_weight="1"-->
+    <!--                            android:src="@drawable/ic_div"-->
+    <!--                            android:onClick="onExpressionClick"/>-->
+    <!--                </LinearLayout>-->
+    <!--        </LinearLayout>-->
 
 
-        <Button
-            android:id="@+id/button_RunData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_widthPercent="25%"
-            app:layout_heightPercent="10%"
-            app:layout_marginStartPercent="25%"
-            app:layout_marginTopPercent="90%"
-            android:text="RUN"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-        <Button
-            android:id="@+id/button_Stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_widthPercent="25%"
-            app:layout_heightPercent="10%"
-            app:layout_marginStartPercent="50%"
-            app:layout_marginTopPercent="90%"
-            android:text="STOP"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_RunData"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-        <Button
-            android:id="@+id/button_Reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-                app:layout_widthPercent="25%"
-                app:layout_heightPercent="10%"
-                app:layout_marginStartPercent="75%"
-                app:layout_marginTopPercent="90%"
-            android:text="RESET"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_Stop"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-</androidx.percentlayout.widget.PercentRelativeLayout>
-
+    <!--</LinearLayout>-->
