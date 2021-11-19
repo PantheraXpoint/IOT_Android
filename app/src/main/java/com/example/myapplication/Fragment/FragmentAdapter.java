@@ -20,7 +20,6 @@ public class FragmentAdapter extends FragmentStateAdapter {
             case 1 :
                 return new GraphActivity();
         }
-
         return new HomeActivity();
     }
 

@@ -5,8 +5,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.myapplication.Fragment.FragmentAdapter;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
+
 
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     String humiUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
     String ledUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/bbc-led";
 
+    Fragment homeActivity;
 
     int waiting_period = 1;
     boolean send_message_again = false;
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     WeatherRequest request = WeatherRequest.getInstance();
 
 
-    List<MQTTMessage> list = new ArrayList<>();
+    public List<MQTTMessage> list = new ArrayList<>();
 
     void getLastData(String url) {
         JsonObjectRequest rq = request.getLastdata(url,new Response.Listener<JSONObject>() {
@@ -58,17 +61,21 @@ public class MainActivity extends AppCompatActivity {
                     if(response.getString("name").equals("BBC_TEMP")){
 //                        txtTemp.setText(response.getString("last_value")+"°C");
                         request.setBbcTemp("last_value");
+                        //if you added fragment via layout xml
+                        list.add(new MQTTMessage("temperature",response.getString("last_value")+"°C"));
 //                        circleTemp.setProgress(Integer.parseInt(response.getString("last_value").toString()));
                     }
                     if(response.getString("name").equals("BBC_HUMI")){
+                        list.add(new MQTTMessage("humidity",response.getString("last_value")+"%"));
 //                                BBC_HUMI = response.getString("last_value");
 //                        txtHumi.setText(response.getString("last_value")+"%");
 //                        circleHumid.setProgress(Integer.parseInt(response.getString("last_value").toString()));
                     }
-//                    if(response.getString("name").equals("BBC_LED")){
+                    if(response.getString("name").equals("BBC_LED")){
+                        list.add(new MQTTMessage("led",response.getString("last_value")));
 //                        btnLED.setChecked(true);
-
-                    //}
+                    //
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -93,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
         adapter = new FragmentAdapter(fm, getLifecycle());
         pager2.setAdapter(adapter);
 
+
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
         tabLayout.addTab(tabLayout.newTab().setText("Graph View"));
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -120,6 +127,22 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
+
+
+//        btnLED.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck){
+////                btnLED.setVisibility(View.INVISIBLE);
+//                if(isCheck == true){
+//                    Log.d("mqtt","Button is checked");
+//                    sendDataMQTT("taunhatquang/feeds/bbc-led","1");
+//                }
+//                else{
+//                    Log.d("mqtt","Button is unchecked");
+//                    sendDataMQTT("taunhatquang/feeds/bbc-led","0");
+//                }
+//            }
+//        });
 
         getLastData(tempUrl);
         getLastData(humiUrl);
@@ -195,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Log.d("mqtt","Timer is executed");
 
-//                btnLED.setVisibility(View.VISIBLE);
+
                 if(waiting_period > 0){
                     waiting_period--;
                     Log.d("time",String.valueOf(waiting_period));
@@ -223,5 +246,10 @@ public class MainActivity extends AppCompatActivity {
     public class MQTTMessage{
         public String topic;
         public String mess;
+
+        MQTTMessage(String topic, String mess){
+            this.topic = topic;
+            this.mess = mess;
+        }
     }
 }
