@@ -2,6 +2,7 @@ package com.example.myapplication.Fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,10 +125,16 @@ public class GraphActivity  extends Fragment {
             }
             tem = tempAPI;
         };
-
         thread =  new Thread(()->{
             while (isRunning) {
-                app.runOnUiThread(runnable);
+                try {
+                    app.runOnUiThread(runnable);
+                }
+                catch(Exception e){
+//                    Toast.makeText(getContext(), "Runnable is null ", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                    return;
+                }
                 if (!isRunning)break;
                 try {
                     Thread.sleep(1000);

@@ -13,8 +13,9 @@
 <!--        android:layout_height="match_parent">-->
         <LinearLayout
             android:orientation="horizontal"
+            android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp">
             <Button
                 android:id="@+id/button_RunData"
                 android:layout_width="wrap_content"
@@ -59,18 +60,20 @@
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="150dp"/>-->
         <com.github.mikephil.charting.charts.LineChart
+            android:layout_weight="8"
             android:id="@+id/lineChart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layout_heightPercent="75%"
             app:layout_marginStartPercent="5%"
             app:layout_marginTopPercent="10%"
             app:layout_widthPercent="90%" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:layout_weight="8"
             android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.9" />
 <!--    </LinearLayout>-->

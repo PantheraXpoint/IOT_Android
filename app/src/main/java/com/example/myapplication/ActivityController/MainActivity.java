@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.myapplication.Fragment.HomeActivity;
 import com.example.myapplication.MQTTHelper;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     String ledUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/bbc-led";
 
 
-    int waiting_period = 0;
+    int waiting_period = 1;
     boolean send_message_again = false;
     MQTTHelper mqttHelper;
     WeatherRequest request = WeatherRequest.getInstance();
@@ -178,12 +179,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void sendDataMQTT(String topic, String value){
+
         waiting_period = 3;
         send_message_again = false;
+
         mqttHelper.sendDataMQTT(topic,value);
+        Log.d("Topic: " + topic.toString(),"Value" + value.toString());
     }
 
     private void  setupScheduler(){
+        Toast.makeText(this, "begin scheduler", Toast.LENGTH_LONG).show();
         Timer aTimer = new Timer();
         TimerTask scheduler = new TimerTask() {
             @Override
@@ -193,16 +198,25 @@ public class MainActivity extends AppCompatActivity {
 //                btnLED.setVisibility(View.VISIBLE);
                 if(waiting_period > 0){
                     waiting_period--;
-                    if(waiting_period == 0){
+                    Log.d("time",String.valueOf(waiting_period));
+                    if(waiting_period <= 0){
                         send_message_again = true;
                     }
                 }
                 if(send_message_again == true){
-                    sendDataMQTT(list.get(0).topic,list.get(0).mess);
+//                    Toast.makeText(getBaseContext(), "period = 0", Toast.LENGTH_LONG).show();
+                    if (list.size() == 0){
+                        waiting_period = 10;
+                        send_message_again = false;
+                    }
+                    else{
+                        sendDataMQTT(list.get(0).topic,list.get(0).mess);
+                    }
                 }
             }
         };
         aTimer.schedule(scheduler,0,5000);
+        Toast.makeText(this, "reset scheduler", Toast.LENGTH_LONG).show();
     }
     //
 
