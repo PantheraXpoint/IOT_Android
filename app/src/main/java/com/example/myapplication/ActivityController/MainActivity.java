@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
             public void onSwipeLeft() {
-                Intent intent = new Intent(MainActivity.this, TempGraphActivity.class);
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();

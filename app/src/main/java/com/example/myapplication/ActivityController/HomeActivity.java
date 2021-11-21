@@ -7,7 +7,10 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.HumidGraphActivity;
+import com.example.myapplication.LedActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.TempGraphActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -32,6 +35,18 @@ public class HomeActivity extends AppCompatActivity {
                 gotoActivity(Activity.TEMPERATURE);
             }
         });
+        humidBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivity(Activity.HUMIDITY);
+            }
+        });
+        ledBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            gotoActivity(Activity.LED);
+        }
+    });
 
     }
 
@@ -40,13 +55,13 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = null;
         switch (act) {
             case TEMPERATURE:
-                intent = new Intent(this,TemperatureActivity.class);
+                intent = new Intent(this, TempGraphActivity.class);
                 break;
             case HUMIDITY:
-                intent = new Intent(this,HumidityActivity.class);
+                intent = new Intent(this, HumidGraphActivity.class);
                 break;
             case LED:
-                intent = new Intent(this,LedActivity.class);
+                intent = new Intent(this, LedActivity.class);
                 break;
             default:
                 break;

@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -46,6 +47,7 @@ public class LedActivity extends AppCompatActivity {
 
     MQTTHelper mqttHelper;
     ToggleButton btnLED;
+    ImageView img_icon;
     boolean isChecked = false;
     //
 //
@@ -149,10 +151,14 @@ public class LedActivity extends AppCompatActivity {
                 ((TextView)findViewById(R.id.txtHumidity)).setText(tmp.get(1) + "%");
             }
             if (tmp.get(0).equals("LED")){
-                if (tmp.get(1).equals("1"))
-                    ((ToggleButton)findViewById(R.id.btnLED)).setChecked(true);
-                else
-                    ((ToggleButton)findViewById(R.id.btnLED)).setChecked(false);
+                if (tmp.get(1).equals("1")) {
+                    ((ToggleButton) findViewById(R.id.btnLED)).setChecked(true);
+                    ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_on);
+                }
+                else {
+                    ((ToggleButton) findViewById(R.id.btnLED)).setChecked(false);
+                    ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_off);
+                }
             }
             if (dialog.isShowing())
                 dialog.dismiss();
@@ -171,6 +177,7 @@ public class LedActivity extends AppCompatActivity {
         setContentView(R.layout.led_activity);
 
         btnLED = findViewById(R.id.btnLED);
+        img_icon = findViewById(R.id.imgView);
 
 
 
@@ -194,12 +201,15 @@ public class LedActivity extends AppCompatActivity {
 //                btnLED.setVisibility(View.INVISIBLE);
                 if(isCheck == true){
                     Log.d("mqtt","Button is checked");
+
                     sendDataMQTT("taunhatquang/feeds/bbc-led","1");
+                    ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_on);
                     list.add(new LedActivity.MQTTMessage("taunhatquang/feeds/bbc-led","1"));
                 }
                 else{
                     Log.d("mqtt","Button is unchecked");
                     sendDataMQTT("taunhatquang/feeds/bbc-led","0");
+                    ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_off);
                     list.add(new LedActivity.MQTTMessage("taunhatquang/feeds/bbc-led","0"));
                 }
             }

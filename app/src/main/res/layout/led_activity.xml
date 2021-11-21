@@ -22,6 +22,23 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="103dp"
+            android:src="@mipmap/led_off_round" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textSpacerNo3"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        />
 
     <LinearLayout
         android:orientation="vertical"
@@ -41,8 +58,9 @@
             android:textOn="" />
     </LinearLayout>
 
+
     <TextView
-        android:id="@+id/textSpacerNo3"
+        android:id="@+id/textSpacerNo4"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         />
