@@ -50,7 +50,7 @@ public class TempGraphActivity extends AppCompatActivity {
             public void onSwipeRight() {
                 Intent intent = new Intent(TempGraphActivity.this, MainActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();
             }
             public void onSwipeLeft() {

@@ -81,23 +81,23 @@
         android:layout_height="70dp"
         />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <LinearLayout-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <ToggleButton
-            android:id="@+id/btnLED"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/toggle_selector"
+<!--        <ToggleButton-->
+<!--            android:id="@+id/btnLED"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/toggle_selector"-->
 
-            android:checked="false"
-            android:layout_gravity="center"
-            android:text=""
-            android:textOff=""
-            android:textOn="" />
-    </LinearLayout>
+<!--            android:checked="false"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:text=""-->
+<!--            android:textOff=""-->
+<!--            android:textOn="" />-->
+<!--    </LinearLayout>-->
 
     <TextView
         android:id="@+id/textSpacerNo3"
