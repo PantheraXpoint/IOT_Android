@@ -47,10 +47,16 @@ public class HumidGraphActivity extends AppCompatActivity {
 
         LinearLayout linearLayout = findViewById(R.id.humidGraph);
         linearLayout.setOnTouchListener(new OnSwipeTouchListener(HumidGraphActivity.this) {
+            public void onSwipeLeft() {
+                Intent intent = new Intent(HumidGraphActivity.this, LedActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
             public void onSwipeRight() {
                 Intent intent = new Intent(HumidGraphActivity.this, TempGraphActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();
             }
         });

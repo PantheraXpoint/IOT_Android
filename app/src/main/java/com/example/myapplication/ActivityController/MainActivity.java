@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     MQTTHelper mqttHelper;
     TextView txtTemp, txtHumi;
-    ToggleButton btnLED;
+//    ToggleButton btnLED;
     boolean isChecked = false;
 //
 //
@@ -171,12 +171,12 @@ public class MainActivity extends AppCompatActivity {
             if (tmp.get(0).equals("Humidity")){
                 ((TextView)findViewById(R.id.txtHumidity)).setText(tmp.get(1) + "%");
             }
-            if (tmp.get(0).equals("LED")){
-                if (tmp.get(1).equals("1"))
-                    ((ToggleButton)findViewById(R.id.btnLED)).setChecked(true);
-                else
-                    ((ToggleButton)findViewById(R.id.btnLED)).setChecked(false);
-            }
+//            if (tmp.get(0).equals("LED")){
+//                if (tmp.get(1).equals("1"))
+//                    ((ToggleButton)findViewById(R.id.btnLED)).setChecked(true);
+//                else
+//                    ((ToggleButton)findViewById(R.id.btnLED)).setChecked(false);
+//            }
             if (dialog.isShowing())
                 dialog.dismiss();
         }
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
         txtTemp = findViewById(R.id.txtTemperature);
         txtHumi = findViewById(R.id.txtHumidity);
-        btnLED = findViewById(R.id.btnLED);
+//        btnLED = findViewById(R.id.btnLED);
 
 
 
@@ -216,26 +216,26 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        btnLED.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck){
-//                btnLED.setVisibility(View.INVISIBLE);
-                if(isCheck == true){
-                    Log.d("mqtt","Button is checked");
-                    sendDataMQTT("taunhatquang/feeds/bbc-led","1");
-                    list.add(new MQTTMessage("taunhatquang/feeds/bbc-led","1"));
-                }
-                else{
-                    Log.d("mqtt","Button is unchecked");
-                    sendDataMQTT("taunhatquang/feeds/bbc-led","0");
-                    list.add(new MQTTMessage("taunhatquang/feeds/bbc-led","0"));
-                }
-            }
-        });
+//        btnLED.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck){
+////                btnLED.setVisibility(View.INVISIBLE);
+//                if(isCheck == true){
+//                    Log.d("mqtt","Button is checked");
+//                    sendDataMQTT("taunhatquang/feeds/bbc-led","1");
+//                    list.add(new MQTTMessage("taunhatquang/feeds/bbc-led","1"));
+//                }
+//                else{
+//                    Log.d("mqtt","Button is unchecked");
+//                    sendDataMQTT("taunhatquang/feeds/bbc-led","0");
+//                    list.add(new MQTTMessage("taunhatquang/feeds/bbc-led","0"));
+//                }
+//            }
+//        });
 //
         (new GetLastData(this)).execute(humiUrl);
         (new GetLastData(this)).execute(tempUrl);
-        (new GetLastData(this)).execute(ledUrl);
+//        (new GetLastData(this)).execute(ledUrl);
 //        setupScheduler();
         startMQTT();
 
@@ -311,19 +311,19 @@ public class MainActivity extends AppCompatActivity {
                     txtHumi.setText(message.toString()+"%");
                 }
 //                Log.d("temperature", topic);
-                if (topic.contains("taunhatquang/feeds/bbc-led")){
-//                    waiting_period = 0;
-//                    send_message_again = false;
-
-//                    System.out.println("Hello world!!!");
-                    if (message.toString().equals("1")){
-                        btnLED.setChecked(true);
-                    }
-                    else {
-                        btnLED.setChecked(false);
-                    }
-
-                }
+//                if (topic.contains("taunhatquang/feeds/bbc-led")){
+////                    waiting_period = 0;
+////                    send_message_again = false;
+//
+////                    System.out.println("Hello world!!!");
+//                    if (message.toString().equals("1")){
+//                        btnLED.setChecked(true);
+//                    }
+//                    else {
+//                        btnLED.setChecked(false);
+//                    }
+//
+//                }
             }
 
             @Override
@@ -332,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public class MQTTMessage{
+    protected class MQTTMessage{
         public String topic;
         public String mess;
         public MQTTMessage (String topic, String mess){
