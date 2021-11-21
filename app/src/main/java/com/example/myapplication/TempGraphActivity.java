@@ -1,23 +1,15 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import com.example.myapplication.ActivityController.MainActivity;
-import com.example.myapplication.R;
-import com.example.myapplication.WeatherDataService;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -30,15 +22,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import static java.lang.Integer.parseInt;
 
-public class GraphActivity  extends Fragment {
-
-    private AppCompatActivity app;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+public class TempGraphActivity extends AppCompatActivity {
 
     private boolean isRunning = false;
     private LineChart chart;
@@ -47,32 +31,35 @@ public class GraphActivity  extends Fragment {
     int tempAPI = 0;
     int tem = 1;
 
-    public GraphActivity() {
-        // Required empty public constructor
-    }
-
-    public static GraphActivity newInstance(String param1, String param2) {
-        GraphActivity fragment = new GraphActivity();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Nullable
     @Override
-    public View onCreateView( LayoutInflater inflater, @Nullable ViewGroup container,Bundle savedInstanceState)
-    {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment2, container, false);
-        chart = view.findViewById(R.id.lineChart);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.temp_graph);
+
+        chart = findViewById(R.id.lineChart);
         initChart();
 
         Button btStop,btStart,btReset;
-        btStart = view.findViewById(R.id.button_RunData);
-        btStop = view.findViewById(R.id.button_Stop);
-        btReset = view.findViewById(R.id.button_Reset);
+        btStart = findViewById(R.id.button_RunData);
+        btStop = findViewById(R.id.button_Stop);
+        btReset = findViewById(R.id.button_Reset);
+
+        LinearLayout linearLayout = findViewById(R.id.tempGraph);
+        linearLayout.setOnTouchListener(new OnSwipeTouchListener(TempGraphActivity.this) {
+            public void onSwipeRight() {
+                Intent intent = new Intent(TempGraphActivity.this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+            public void onSwipeLeft() {
+                Intent intent = new Intent(TempGraphActivity.this, HumidGraphActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
 
         btStart.setOnClickListener(v->{
             startRun();
@@ -88,14 +75,6 @@ public class GraphActivity  extends Fragment {
             tem = 1;
             initChart();
         });
-        return view;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
     }
 
     private void startRun(){
@@ -104,17 +83,17 @@ public class GraphActivity  extends Fragment {
         isRunning = true;
 
         Runnable runnable  = ()->{
-            WeatherDataService weatherDataService = new WeatherDataService(GraphActivity.this.app);
+            WeatherDataService weatherDataService = new WeatherDataService(TempGraphActivity.this);
             weatherDataService.getLastdata(tempUrl, new WeatherDataService.VolleyResponseListener() {
                 @Override
                 public void onError(String message) {
-                    Toast.makeText(GraphActivity.this.app, "Something wrong!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TempGraphActivity.this, "Something wrong!!", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onResponse(String temp) {
                     if(parseInt(temp) != tempAPI) {
-                        Toast.makeText(GraphActivity.this.app, "Return temp: " + temp, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TempGraphActivity.this, "Return temp: " + temp, Toast.LENGTH_SHORT).show();
                         tempAPI = parseInt(temp);
                     }
                 }
@@ -125,16 +104,10 @@ public class GraphActivity  extends Fragment {
             }
             tem = tempAPI;
         };
+
         thread =  new Thread(()->{
             while (isRunning) {
-                try {
-                    app.runOnUiThread(runnable);
-                }
-                catch(Exception e){
-//                    Toast.makeText(getContext(), "Runnable is null ", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                    return;
-                }
+                runOnUiThread(runnable);
                 if (!isRunning)break;
                 try {
                     Thread.sleep(1000);

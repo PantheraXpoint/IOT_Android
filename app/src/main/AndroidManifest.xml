@@ -15,6 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name=".LedActivity"></activity>
+        <activity android:name=".HumidGraphActivity" />
+        <activity android:name=".TempGraphActivity" />
         <activity android:name=".ActivityController.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +26,7 @@
             </intent-filter>
         </activity>
 
-
-        <service android:name="org.eclipse.paho.android.service.MqttService"/>
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 
 </manifest>

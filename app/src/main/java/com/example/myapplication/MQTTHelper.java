@@ -3,6 +3,11 @@ package com.example.myapplication;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -12,8 +17,8 @@ import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-
-import java.nio.charset.Charset;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Le Trong Nhan on 18/02/2020.
@@ -23,6 +28,10 @@ public class MQTTHelper {
 
     final String serverUri = "tcp://io.adafruit.com:1883";
 
+
+    String tempUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/temperature";
+    String humiUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
+    String ledUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/bbc-led";
 
     private String clientId = "";
     final String subscriptionTopic = "taunhatquang/feeds";
@@ -67,6 +76,7 @@ public class MQTTHelper {
             public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 
             }
+
         });
         connect();
     }
@@ -129,32 +139,6 @@ public class MQTTHelper {
         } catch (MqttException ex) {
             System.err.println("Exceptionst subscribing");
             ex.printStackTrace();
-        }
-    }
-
-    public void startMQTT(MqttCallbackExtended callback){
-        this.setCallback(callback);
-    }
-
-    public void sendDataMQTT(String topic, String value){
-//        MQTTMessage aMessage = new MQTTMessage();
-//        aMessage.topic = topic; aMessage.mess = value;
-//        list.add(aMessage);
-
-        MqttMessage msg = new MqttMessage();
-        msg.setId(1234);
-        msg.setQos(0);
-        msg.setRetained(true);
-
-
-
-        byte[] b = value.getBytes(Charset.forName("UTF-8"));
-        msg.setPayload(b);
-
-        try{
-            this.mqttAndroidClient.publish(topic,msg);
-        }catch (Exception e){
-
         }
     }
 }
