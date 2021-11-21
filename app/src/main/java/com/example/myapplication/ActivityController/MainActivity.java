@@ -235,8 +235,8 @@ public class MainActivity extends AppCompatActivity {
 //
         (new GetLastData(this)).execute(humiUrl);
         (new GetLastData(this)).execute(tempUrl);
-//        (new GetLastData(this)).execute(ledUrl);
-        setupScheduler();
+        (new GetLastData(this)).execute(ledUrl);
+//        setupScheduler();
         startMQTT();
 
 

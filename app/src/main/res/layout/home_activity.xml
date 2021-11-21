@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/homeLayout"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        >
+        <TextView
+            android:text="IOT Demo"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@color/design_default_color_primary"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="10pt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_below="@id/header_title"
+        android:layout_width="match_parent"
+        android:columnCount="2"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="100dp"
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:layout_height="300dp">
+
+        <RelativeLayout
+            android:id="@+id/tempBtn"
+            android:background="@color/design_default_color_primary"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="left|top"
+            >
+            <TextView
+                android:text="°C"
+                android:id="@+id/temp_icon"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="20pt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <TextView
+                android:text="Temperature"
+                android:layout_below="@id/temp_icon"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="5pt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/humidBtn"
+            android:layout_gravity="right|top"
+            android:background="@color/design_default_color_primary"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            >
+            <TextView
+                android:id="@+id/iconHumidity"
+                android:drawableTop="@drawable/ic_water_drop_baseline_invert_colors_24"
+                android:paddingTop="20dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:scaleX="2"
+                android:scaleY="2"
+                android:drawableTint="@color/white"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <TextView
+                android:text="Humidity"
+                android:layout_below="@id/iconHumidity"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="5pt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ledBtn"
+            android:layout_gravity="center|bottom"
+            android:background="@color/design_default_color_primary"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            >
+            <TextView
+                android:id="@+id/iconLed"
+                android:drawableTop="@drawable/ic_led_baseline_wb_incandescent_24"
+                android:paddingTop="20dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:scaleX="2"
+                android:scaleY="2"
+                android:drawableTint="@color/white"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <TextView
+                android:text="Led"
+                android:layout_below="@id/iconLed"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="5pt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+        </RelativeLayout>
+
+    </GridLayout>
+
+
+
+</RelativeLayout>
