@@ -1,15 +1,7 @@
 package com.example.myapplication.ActivityController;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager2.widget.ViewPager2;
 
 
 import android.app.Activity;
@@ -19,20 +11,13 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 
 import com.example.myapplication.MQTTHelper;
-import com.example.myapplication.MySingleton;
 import com.example.myapplication.OnSwipeTouchListener;
 import com.example.myapplication.R;
-import com.example.myapplication.TempGraphActivity;
-import com.example.myapplication.WeatherRequest.WeatherRequest;
-import com.google.android.material.tabs.TabLayout;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -50,7 +35,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
