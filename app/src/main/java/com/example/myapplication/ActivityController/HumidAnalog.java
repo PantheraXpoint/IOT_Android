@@ -3,7 +3,6 @@ package com.example.myapplication.ActivityController;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,7 +13,7 @@ import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
+import com.example.myapplication.HumidGraphActivity;
 import com.example.myapplication.MQTTHelper;
 import com.example.myapplication.OnSwipeTouchListener;
 import com.example.myapplication.R;
@@ -39,57 +38,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class HumidAnalog extends AppCompatActivity {
 
+    private static final String TAG = "HumidAnalog";
 
-    private static final String TAG = "MainActivity";
-
-    int waiting_period = 0;
-    boolean send_message_again = false;
-    List<MQTTMessage> list = new ArrayList<>();
 
 
     MQTTHelper mqttHelper;
-    TextView txtTemp, txtHumi;
-//    ToggleButton btnLED;
-    boolean isChecked = false;
-//
-//
-    public String tempUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/temperature";
+    TextView txtHumi;
     public String humiUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
-    public String ledUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/bbc-led";
-
-
-//        protected void getLastdata(String url){
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-//                Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    if(response.getString("name").equals("BBC_TEMP")){
-//                        txtTemp.setText(response.getString("last_value")+"°C");
-////                        circleTemp.setProgress(Integer.parseInt(response.getString("last_value").toString()));
-//                    }
-//                    if(response.getString("name").equals("BBC_HUMI")){
-//                        txtHumi.setText(response.getString("last_value")+"%");
-////                        circleHumid.setProgress(Integer.parseInt(response.getString("last_value").toString()));
-//                    }
-////                    if(response.getString("name").equals("BBC_LED")){
-////                        btnLED.setChecked(true);
-//
-//                //}
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//            }
-//        }
-//        );
-//        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
-//    }
 
     private class GetLastData extends AsyncTask<String,Void,String>
     {
@@ -175,103 +132,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.humid_analog);
 
-        txtTemp = findViewById(R.id.txtTemperature);
         txtHumi = findViewById(R.id.txtHumidity);
 //        btnLED = findViewById(R.id.btnLED);
 
 
 
-        LinearLayout linearLayout = findViewById(R.id.mainActivity);
-        linearLayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+        LinearLayout linearLayout = findViewById(R.id.humidAnalog);
+        linearLayout.setOnTouchListener(new OnSwipeTouchListener(HumidAnalog.this) {
             public void onSwipeRight() {
-
+                Intent intent = new Intent(HumidAnalog.this, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+                finish();
             }
             public void onSwipeLeft() {
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                Intent intent = new Intent(HumidAnalog.this, HumidGraphActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
 
-
-
-
-
-//        btnLED.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck){
-////                btnLED.setVisibility(View.INVISIBLE);
-//                if(isCheck == true){
-//                    Log.d("mqtt","Button is checked");
-//                    sendDataMQTT("taunhatquang/feeds/bbc-led","1");
-//                    list.add(new MQTTMessage("taunhatquang/feeds/bbc-led","1"));
-//                }
-//                else{
-//                    Log.d("mqtt","Button is unchecked");
-//                    sendDataMQTT("taunhatquang/feeds/bbc-led","0");
-//                    list.add(new MQTTMessage("taunhatquang/feeds/bbc-led","0"));
-//                }
-//            }
-//        });
-//
-//        (new GetLastData(this)).execute(humiUrl);
-        (new GetLastData(this)).execute(tempUrl);
-//        (new GetLastData(this)).execute(ledUrl);
-//        setupScheduler();
+        (new HumidAnalog.GetLastData(this)).execute(humiUrl);
         startMQTT();
 
 
     }
 
-    private void  setupScheduler(){
-        Timer aTimer = new Timer();
-        TimerTask scheduler = new TimerTask() {
-            @Override
-            public void run() {
-                Log.d("mqtt","Timer is executed");
-
-//                btnLED.setVisibility(View.VISIBLE);
-                if(waiting_period > 0){
-                    waiting_period--;
-                    send_message_again = true;
-                    if(waiting_period == 0){
-                        send_message_again = false;
-                    }
-                }
-                if(send_message_again == true){
-                    sendDataMQTT(list.get(0).topic,list.get(0).mess);
-                }
-            }
-        };
-        aTimer.schedule(scheduler,0,5000);
-    }
-//
-    private  void sendDataMQTT(String topic, String value){
-        waiting_period = 3;
-        send_message_again = false;
-//        MQTTMessage aMessage = new MQTTMessage();
-//        aMessage.topic = topic; aMessage.mess = value;
-//        list.add(aMessage);
-
-        MqttMessage msg = new MqttMessage();
-        msg.setId(1234);
-        msg.setQos(0);
-        msg.setRetained(true);
-
-
-
-        byte[] b = value.getBytes(Charset.forName("UTF-8"));
-        msg.setPayload(b);
-
-        try{
-            mqttHelper.mqttAndroidClient.publish(topic,msg);
-        }catch (Exception e){
-
-        }
-    }
     private void startMQTT(){
         mqttHelper = new MQTTHelper(getApplicationContext(),"123456789");
         mqttHelper.setCallback(new MqttCallbackExtended() {
@@ -287,27 +176,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
-                if (topic.contains("taunhatquang/feeds/temperature")){
-                    txtTemp.setText(message.toString()+"°C");
-                }
                 if (topic.contains("taunhatquang/feeds/humidity")){
                     Log.d("humidity", message.toString());
                     txtHumi.setText(message.toString()+"%");
                 }
-//                Log.d("temperature", topic);
-//                if (topic.contains("taunhatquang/feeds/bbc-led")){
-////                    waiting_period = 0;
-////                    send_message_again = false;
-//
-////                    System.out.println("Hello world!!!");
-//                    if (message.toString().equals("1")){
-//                        btnLED.setChecked(true);
-//                    }
-//                    else {
-//                        btnLED.setChecked(false);
-//                    }
-//
-//                }
             }
 
             @Override
@@ -315,13 +187,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-    protected class MQTTMessage{
-        public String topic;
-        public String mess;
-        public MQTTMessage (String topic, String mess){
-            this.topic = topic;
-            this.mess = mess;
-        }
     }
 }

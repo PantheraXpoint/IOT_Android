@@ -15,6 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name=".ActivityController.TempAnalog"></activity>
+        <activity android:name=".ActivityController.HumidAnalog" />
         <activity android:name=".LedActivity" />
         <activity android:name=".HumidGraphActivity" />
         <activity android:name=".TempGraphActivity" />

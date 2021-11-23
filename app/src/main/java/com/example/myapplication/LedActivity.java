@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.example.myapplication.ActivityController.HomeActivity;
 import com.example.myapplication.ActivityController.MainActivity;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -184,7 +185,7 @@ public class LedActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.ledActivity);
         linearLayout.setOnTouchListener(new OnSwipeTouchListener(LedActivity.this) {
             public void onSwipeRight() {
-                Intent intent = new Intent(LedActivity.this, HumidGraphActivity.class);
+                Intent intent = new Intent(LedActivity.this, HomeActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();

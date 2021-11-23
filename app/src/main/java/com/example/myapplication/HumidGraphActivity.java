@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.myapplication.ActivityController.HumidAnalog;
 import com.example.myapplication.ActivityController.MainActivity;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -47,14 +48,8 @@ public class HumidGraphActivity extends AppCompatActivity {
 
         LinearLayout linearLayout = findViewById(R.id.humidGraph);
         linearLayout.setOnTouchListener(new OnSwipeTouchListener(HumidGraphActivity.this) {
-            public void onSwipeLeft() {
-                Intent intent = new Intent(HumidGraphActivity.this, LedActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
-            }
             public void onSwipeRight() {
-                Intent intent = new Intent(HumidGraphActivity.this, TempGraphActivity.class);
+                Intent intent = new Intent(HumidGraphActivity.this, HumidAnalog.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();

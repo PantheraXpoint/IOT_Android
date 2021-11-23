@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,7 +10,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.myapplication.ActivityController.HomeActivity;
 import com.example.myapplication.ActivityController.MainActivity;
+import com.example.myapplication.ActivityController.TempAnalog;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -48,15 +51,9 @@ public class TempGraphActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.tempGraph);
         linearLayout.setOnTouchListener(new OnSwipeTouchListener(TempGraphActivity.this) {
             public void onSwipeRight() {
-                Intent intent = new Intent(TempGraphActivity.this, MainActivity.class);
+                Intent intent = new Intent(TempGraphActivity.this, TempAnalog.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
-                finish();
-            }
-            public void onSwipeLeft() {
-                Intent intent = new Intent(TempGraphActivity.this, HumidGraphActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });

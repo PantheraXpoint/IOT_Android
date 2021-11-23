@@ -132,6 +132,30 @@
 
     </GridLayout>
 
+    <RelativeLayout
+        android:layout_marginTop="550dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="103dp"
+                android:src="@drawable/logo" />
+            <TextView
+                android:layout_marginLeft="50dp"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ANDROID DASHBOARD"
+                android:textColor="#0000ff"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

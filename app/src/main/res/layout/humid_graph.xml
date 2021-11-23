@@ -12,6 +12,44 @@
     <!--        android:orientation="vertical"-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="match_parent">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/tempA"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="Analog"/>
+        <Button
+            android:id="@+id/tempG"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="Analog"/>
+    </LinearLayout>
+    <!--    <TextView-->
+    <!--        android:id="@+id/textSpacerNo3"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="150dp"/>-->
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_weight="8"
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="75%"
+        app:layout_marginStartPercent="5%"
+        app:layout_marginTopPercent="10%"
+        app:layout_widthPercent="90%" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_weight="8"
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+    <!--    </LinearLayout>-->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_weight="2"
@@ -56,26 +94,4 @@
             app:layout_constraintEnd_toStartOf="@+id/button_Stop"
             app:layout_constraintTop_toTopOf="@+id/guideline" />
     </LinearLayout>
-    <!--    <TextView-->
-    <!--        android:id="@+id/textSpacerNo3"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="150dp"/>-->
-    <com.github.mikephil.charting.charts.LineChart
-        android:layout_weight="8"
-        android:id="@+id/lineChart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_heightPercent="75%"
-        app:layout_marginStartPercent="5%"
-        app:layout_marginTopPercent="10%"
-        app:layout_widthPercent="90%" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_weight="8"
-        android:id="@+id/guideline"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-    <!--    </LinearLayout>-->
 </LinearLayout>

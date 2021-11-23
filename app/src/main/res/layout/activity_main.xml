@@ -75,34 +75,11 @@
         </LinearLayout>
     </LinearLayout>
 
+
     <TextView
         android:id="@+id/textSpacerNo2"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        />
-
-<!--    <LinearLayout-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--        <ToggleButton-->
-<!--            android:id="@+id/btnLED"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/toggle_selector"-->
-
-<!--            android:checked="false"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text=""-->
-<!--            android:textOff=""-->
-<!--            android:textOn="" />-->
-<!--    </LinearLayout>-->
-
-    <TextView
-        android:id="@+id/textSpacerNo3"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="420dp"
         />
     <LinearLayout
         android:orientation="horizontal"
@@ -124,11 +101,6 @@
             android:gravity="center"
             android:text="ANDROID DASHBOARD"
             android:textColor="#0000ff"
-            android:textStyle="bold"
-
-            app:layout_heightPercent="20%"
-            app:layout_marginStartPercent="20%"
-            app:layout_marginTopPercent="90%"
-            app:layout_widthPercent="90%" />
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
