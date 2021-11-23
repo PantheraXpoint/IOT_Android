@@ -13,6 +13,8 @@ import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -47,7 +49,7 @@ public class LedActivity extends AppCompatActivity {
 
 
     MQTTHelper mqttHelper;
-    ToggleButton btnLED;
+    Switch btnLED;
     ImageView img_icon;
     boolean isChecked = false;
     //
@@ -153,11 +155,11 @@ public class LedActivity extends AppCompatActivity {
             }
             if (tmp.get(0).equals("LED")){
                 if (tmp.get(1).equals("1")) {
-                    ((ToggleButton) findViewById(R.id.btnLED)).setChecked(true);
+                    ((Switch) findViewById(R.id.btnLed)).setChecked(true);
                     ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_on);
                 }
                 else {
-                    ((ToggleButton) findViewById(R.id.btnLED)).setChecked(false);
+                    ((Switch) findViewById(R.id.btnLed)).setChecked(false);
                     ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_off);
                 }
             }
@@ -177,12 +179,12 @@ public class LedActivity extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.led_activity);
 
-        btnLED = findViewById(R.id.btnLED);
+        btnLED = findViewById(R.id.btnLed);
         img_icon = findViewById(R.id.imgView);
 
 
 
-        LinearLayout linearLayout = findViewById(R.id.ledActivity);
+        RelativeLayout linearLayout = findViewById(R.id.ledActivity);
         linearLayout.setOnTouchListener(new OnSwipeTouchListener(LedActivity.this) {
             public void onSwipeRight() {
                 Intent intent = new Intent(LedActivity.this, HomeActivity.class);
