@@ -14,14 +14,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
-        <activity android:name=".ActivityController.TempAnalog"></activity>
-        <activity android:name=".ActivityController.HumidAnalog" />
-        <activity android:name=".LedActivity" />
-        <activity android:name=".HumidGraphActivity" />
-        <activity android:name=".TempGraphActivity" />
-        <activity android:name=".ActivityController.HomeActivity" />
-        <activity android:name=".ActivityController.MainActivity">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".ActivityController.TempAnalog" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".ActivityController.HumidAnalog"  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".LedActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".HumidGraphActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".TempGraphActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".ActivityController.HomeActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".ActivityController.MainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.myapplication.HumidGraphActivity;
@@ -128,7 +129,7 @@ public class TempAnalog extends AppCompatActivity {
 
 
 
-        LinearLayout linearLayout = findViewById(R.id.tempAnalog);
+        RelativeLayout linearLayout = findViewById(R.id.tempAnalog);
         linearLayout.setOnTouchListener(new OnSwipeTouchListener(TempAnalog.this) {
             public void onSwipeRight() {
                 Intent intent = new Intent(TempAnalog.this, HomeActivity.class);
