@@ -11,10 +11,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.myapplication.AlertReceiver;
+import com.example.myapplication.HumidGraphActivity;
+import com.example.myapplication.OnSwipeTouchListener;
 import com.example.myapplication.R;
 import com.example.myapplication.TimePickerFragment;
 
@@ -30,6 +33,16 @@ public class AlarmActivity extends AppCompatActivity implements TimePickerDialog
         setContentView(R.layout.activity_alarm);
 
         mTextView = findViewById(R.id.textView);
+
+        LinearLayout linearLayout = findViewById(R.id.humidAnalog);
+        linearLayout.setOnTouchListener(new OnSwipeTouchListener(AlarmActivity.this) {
+            public void onSwipeRight() {
+                Intent intent = new Intent(AlarmActivity.this, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+                finish();
+            }
+        });
 
         Button buttonTimePicker = findViewById(R.id.button_timepicker);
         buttonTimePicker.setOnClickListener(new View.OnClickListener() {

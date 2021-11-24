@@ -79,7 +79,6 @@
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
             <TextView
-                android:id="@+id/textSpacerNoButtons"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"

@@ -85,18 +85,7 @@ public class LedActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(URLcontent);
                 last_value = jsonObject.getString("last_value");
                 topic = jsonObject.getString("name");
-//                JSONObject rates = (JSONObject) jsonObject.get("rates");
-//                Iterator<String> keys = rates.keys();
-//                Double VND_rate = rates.getDouble("VND");
-//                String key="";
-//                while(keys.hasNext()) {
-//                    key = keys.next();
-//                    if (key.equals("VND") || key.equals(base_rate))
-//                        continue;
-//                    Double rate = VND_rate / ((Double) rates.get(key));
-//                    MyCurrency newCur = new MyCurrency(key, rate, "", 0);
-//                    res.add(newCur);
-//                }
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -257,10 +246,6 @@ public class LedActivity extends AppCompatActivity {
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 if (topic.contains("taunhatquang/feeds/bbc-led")){
-//                    waiting_period = 0;
-//                    send_message_again = false;
-
-//                    System.out.println("Hello world!!!");
                     if (message.toString().equals("1")){
                         btnLED.setChecked(true);
                     }

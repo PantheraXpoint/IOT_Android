@@ -1,5 +1,6 @@
 package com.example.myapplication.ActivityController;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -137,9 +138,9 @@ public class TempAnalog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.temp_analog);
 
-        txtTemp = (PieView) findViewById(R.id.pieView);
-        waterHose = (Switch)findViewById(R.id.watering);
-        airConditioner = (Slider)findViewById(R.id.slider);
+        txtTemp = findViewById(R.id.pieView);
+        waterHose = findViewById(R.id.watering);
+        airConditioner = findViewById(R.id.slider);
 
 
 
@@ -167,13 +168,13 @@ public class TempAnalog extends AppCompatActivity {
                 if(isCheck == true){
                     Log.d("mqtt","Button is checked");
 
-                    sendDataMQTT("taunhatquang/feeds/bbc-led","1");
+                    sendDataMQTT("taunhatquang/feeds/watering","1");
                     ((Switch) findViewById(R.id.watering)).setChecked(true);
                     list.add(new TempAnalog.MQTTMessage("taunhatquang/feeds/watering","1"));
                 }
                 else{
                     Log.d("mqtt","Button is unchecked");
-                    sendDataMQTT("taunhatquang/feeds/bbc-led","0");
+                    sendDataMQTT("taunhatquang/feeds/watering","0");
                     ((Switch) findViewById(R.id.watering)).setChecked(false);
                     list.add(new TempAnalog.MQTTMessage("taunhatquang/feeds/watering","0"));
                 }
@@ -181,8 +182,20 @@ public class TempAnalog extends AppCompatActivity {
         });
 
         airConditioner.addOnSliderTouchListener( new Slider.OnSliderTouchListener() {
+            @Override
+            public void onStartTrackingTouch(@NonNull Slider slider) {
+                float values = slider.getValue();
+                Log.d("SliderPreviousValue", String.valueOf(values));
+            }
 
-
+            @Override
+            public void onStopTrackingTouch(@NonNull Slider slider) {
+                float values = slider.getValue();
+                Log.d("SliderAfterValue", String.valueOf(values));
+                sendDataMQTT("taunhatquang/feeds/ac",String.valueOf(values));
+                ((Slider)findViewById(R.id.slider)).setValue(values);
+                list.add(new TempAnalog.MQTTMessage("taunhatquang/feeds/ac",String.valueOf(values)));
+            }
         });
 
         (new TempAnalog.GetLastData(this)).execute(tempUrl);
@@ -243,6 +256,7 @@ public class TempAnalog extends AppCompatActivity {
                     }
                 }
                 if (topic.contains("taunhatquang/feeds/ac")){
+                    Log.d("dcmn",message.toString());
                     airConditioner.setValue(Float.parseFloat(message.toString()));
                 }
             }
