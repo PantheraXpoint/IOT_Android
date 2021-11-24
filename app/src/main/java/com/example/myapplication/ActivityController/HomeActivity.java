@@ -19,7 +19,8 @@ public class HomeActivity extends AppCompatActivity {
     private enum Activity {
         TEMPERATURE,
         HUMIDITY,
-        LED
+        LED,
+        ALARM
     }
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,19 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         RelativeLayout tempBtn = findViewById(R.id.tempBtn);
         RelativeLayout humidBtn = findViewById(R.id.humidBtn);
         RelativeLayout ledBtn = findViewById(R.id.ledBtn);
-
-        RelativeLayout relativeLayout = findViewById(R.id.homeLayout);
-        relativeLayout.setOnTouchListener(new OnSwipeTouchListener(HomeActivity.this) {
-            public void onSwipeRight() {
-
-            }
-            public void onSwipeLeft() {
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
-            }
-        });
+        RelativeLayout alarmBtn = findViewById(R.id.Alarm);
 
         tempBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +51,12 @@ public class HomeActivity extends AppCompatActivity {
             gotoActivity(Activity.LED);
         }
     });
+        alarmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivity(Activity.ALARM);
+            }
+        });
 
     }
 
@@ -77,6 +72,9 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case LED:
                 intent = new Intent(this, LedActivity.class);
+                break;
+            case ALARM:
+                intent = new Intent(this, AlarmActivity.class);
                 break;
             default:
                 break;

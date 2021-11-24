@@ -12,25 +12,6 @@
     <!--        android:orientation="vertical"-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="match_parent">-->
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <Button
-        android:id="@+id/tempA"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:text="Analog"/>
-    <Button
-        android:id="@+id/tempG"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:text="Analog"/>
-</LinearLayout>
-
-
-
     <!--    <TextView-->
     <!--        android:id="@+id/textSpacerNo3"-->
     <!--        android:layout_width="match_parent"-->
@@ -55,48 +36,72 @@
     <!--    </LinearLayout>-->
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_weight="2"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <Button
-            android:id="@+id/button_RunData"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <Button
+                android:id="@+id/button_RunData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_widthPercent="25%"
+                app:layout_heightPercent="10%"
+                app:layout_marginStartPercent="25%"
+                app:layout_marginTopPercent="90%"
+                android:text="RUN"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                />
+            <Button
+                android:id="@+id/button_Stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_widthPercent="25%"
+                app:layout_heightPercent="10%"
+                app:layout_marginStartPercent="50%"
+                app:layout_marginTopPercent="90%"
+                android:text="STOP"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_RunData"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                />
+            <Button
+                android:id="@+id/button_Reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_widthPercent="25%"
+                app:layout_heightPercent="10%"
+                app:layout_marginStartPercent="75%"
+                app:layout_marginTopPercent="90%"
+                android:text="RESET"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_Stop"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_widthPercent="25%"
-            app:layout_heightPercent="10%"
-            app:layout_marginStartPercent="25%"
-            app:layout_marginTopPercent="90%"
-            android:text="RUN"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-        <Button
-            android:id="@+id/button_Stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_widthPercent="25%"
-            app:layout_heightPercent="10%"
-            app:layout_marginStartPercent="50%"
-            app:layout_marginTopPercent="90%"
-            android:text="STOP"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_RunData"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-        <Button
-            android:id="@+id/button_Reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_widthPercent="25%"
-            app:layout_heightPercent="10%"
-            app:layout_marginStartPercent="75%"
-            app:layout_marginTopPercent="90%"
-            android:text="RESET"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_Stop"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            android:orientation="horizontal">
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_url="https://assets1.lottiefiles.com/packages/lf20_lpygncvl.json"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

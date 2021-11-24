@@ -10,14 +10,19 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.myapplication.HumidGraphActivity;
+import com.example.myapplication.LedActivity;
 import com.example.myapplication.MQTTHelper;
 import com.example.myapplication.OnSwipeTouchListener;
 import com.example.myapplication.R;
 import com.example.myapplication.TempGraphActivity;
+import com.google.android.material.slider.Slider;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -39,16 +44,22 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import az.plainpie.PieView;
+
 public class TempAnalog extends AppCompatActivity {
 
     private static final String TAG = "TempAnalog";
 
-
+    int waiting_period = 0;
+    boolean send_message_again = false;
+    List<TempAnalog.MQTTMessage> list = new ArrayList<>();
     MQTTHelper mqttHelper;
-    TextView txtTemp;
-
+    PieView txtTemp;
+    Switch waterHose;
+    Slider airConditioner;
     public String tempUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/temperature";
-
+    public String acUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/ac";
+    public String hoseUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/watering";
 
     private class GetLastData extends AsyncTask<String,Void,String>
     {
@@ -97,17 +108,20 @@ public class TempAnalog extends AppCompatActivity {
         protected void onPostExecute(String temp) {
             List<String> tmp = Arrays.asList(temp.split(" "));
             if (tmp.get(0).equals("Temperature")){
-                ((TextView)findViewById(R.id.txtTemperature)).setText(tmp.get(1) + "°C");
+                ((PieView)findViewById(R.id.pieView)).setInnerText(tmp.get(1) + "°C");
+                ((PieView)findViewById(R.id.pieView)).setPercentage(Integer.parseInt(tmp.get(1)));
             }
-            if (tmp.get(0).equals("Humidity")){
-                ((TextView)findViewById(R.id.txtHumidity)).setText(tmp.get(1) + "%");
+            if (tmp.get(0).equals("Watering")){
+                if (tmp.get(1).equals("1")) {
+                    ((Switch) findViewById(R.id.watering)).setChecked(true);
+                }
+                else {
+                    ((Switch) findViewById(R.id.watering)).setChecked(false);
+                }
             }
-//            if (tmp.get(0).equals("LED")){
-//                if (tmp.get(1).equals("1"))
-//                    ((ToggleButton)findViewById(R.id.btnLED)).setChecked(true);
-//                else
-//                    ((ToggleButton)findViewById(R.id.btnLED)).setChecked(false);
-//            }
+            if (tmp.get(0).equals("AC")){
+                ((Slider)findViewById(R.id.slider)).setValue(Float.parseFloat(tmp.get(1)));
+            }
             if (dialog.isShowing())
                 dialog.dismiss();
         }
@@ -123,8 +137,9 @@ public class TempAnalog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.temp_analog);
 
-        txtTemp = findViewById(R.id.txtTemperature);
-
+        txtTemp = (PieView) findViewById(R.id.pieView);
+        waterHose = (Switch)findViewById(R.id.watering);
+        airConditioner = (Slider)findViewById(R.id.slider);
 
 
 
@@ -144,12 +159,62 @@ public class TempAnalog extends AppCompatActivity {
             }
         });
 
+
+        waterHose.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck){
+//                btnLED.setVisibility(View.INVISIBLE);
+                if(isCheck == true){
+                    Log.d("mqtt","Button is checked");
+
+                    sendDataMQTT("taunhatquang/feeds/bbc-led","1");
+                    ((Switch) findViewById(R.id.watering)).setChecked(true);
+                    list.add(new TempAnalog.MQTTMessage("taunhatquang/feeds/watering","1"));
+                }
+                else{
+                    Log.d("mqtt","Button is unchecked");
+                    sendDataMQTT("taunhatquang/feeds/bbc-led","0");
+                    ((Switch) findViewById(R.id.watering)).setChecked(false);
+                    list.add(new TempAnalog.MQTTMessage("taunhatquang/feeds/watering","0"));
+                }
+            }
+        });
+
+        airConditioner.addOnSliderTouchListener( new Slider.OnSliderTouchListener() {
+
+
+        });
+
         (new TempAnalog.GetLastData(this)).execute(tempUrl);
+        (new TempAnalog.GetLastData(this)).execute(acUrl);
+        (new TempAnalog.GetLastData(this)).execute(hoseUrl);
         startMQTT();
 
 
     }
+    private  void sendDataMQTT(String topic, String value){
+        waiting_period = 3;
+        send_message_again = false;
+//        MQTTMessage aMessage = new MQTTMessage();
+//        aMessage.topic = topic; aMessage.mess = value;
+//        list.add(aMessage);
 
+        MqttMessage msg = new MqttMessage();
+        msg.setId(1234);
+        msg.setQos(0);
+        msg.setRetained(true);
+
+
+
+        byte[] b = value.getBytes(Charset.forName("UTF-8"));
+        msg.setPayload(b);
+
+        try{
+            mqttHelper.mqttAndroidClient.publish(topic,msg);
+        }catch (Exception e){
+
+        }
+    }
     private void startMQTT(){
         mqttHelper = new MQTTHelper(getApplicationContext(),"123456789");
         mqttHelper.setCallback(new MqttCallbackExtended() {
@@ -166,7 +231,19 @@ public class TempAnalog extends AppCompatActivity {
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 if (topic.contains("taunhatquang/feeds/temperature")){
-                    txtTemp.setText(message.toString()+"°C");
+                    txtTemp.setInnerText(message.toString()+"°C");
+                    ((PieView)findViewById(R.id.pieView)).setPercentage(Integer.parseInt(message.toString()));
+                }
+                if (topic.contains("taunhatquang/feeds/watering")){
+                    if (message.toString().equals("1")){
+                        waterHose.setChecked(true);
+                    }
+                    else {
+                        waterHose.setChecked(false);
+                    }
+                }
+                if (topic.contains("taunhatquang/feeds/ac")){
+                    airConditioner.setValue(Float.parseFloat(message.toString()));
                 }
             }
 
@@ -175,5 +252,13 @@ public class TempAnalog extends AppCompatActivity {
 
             }
         });
+    }
+    protected class MQTTMessage{
+        public String topic;
+        public String mess;
+        public MQTTMessage (String topic, String mess){
+            this.topic = topic;
+            this.mess = mess;
+        }
     }
 }

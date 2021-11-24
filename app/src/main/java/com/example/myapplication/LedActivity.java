@@ -13,6 +13,8 @@ import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -47,7 +49,7 @@ public class LedActivity extends AppCompatActivity {
 
 
     MQTTHelper mqttHelper;
-    ToggleButton btnLED;
+    Switch btnLED;
     ImageView img_icon;
     boolean isChecked = false;
     //
@@ -56,36 +58,6 @@ public class LedActivity extends AppCompatActivity {
     public String ledUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/bbc-led";
 
 
-//        protected void getLastdata(String url){
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-//                Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    if(response.getString("name").equals("BBC_TEMP")){
-//                        txtTemp.setText(response.getString("last_value")+"°C");
-////                        circleTemp.setProgress(Integer.parseInt(response.getString("last_value").toString()));
-//                    }
-//                    if(response.getString("name").equals("BBC_HUMI")){
-//                        txtHumi.setText(response.getString("last_value")+"%");
-////                        circleHumid.setProgress(Integer.parseInt(response.getString("last_value").toString()));
-//                    }
-////                    if(response.getString("name").equals("BBC_LED")){
-////                        btnLED.setChecked(true);
-//
-//                //}
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//            }
-//        }
-//        );
-//        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
-//    }
 
     private class GetLastData extends AsyncTask<String,Void,String>
     {
@@ -145,19 +117,19 @@ public class LedActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String temp) {
             List<String> tmp = Arrays.asList(temp.split(" "));
-            if (tmp.get(0).equals("Temperature")){
-                ((TextView)findViewById(R.id.txtTemperature)).setText(tmp.get(1) + "°C");
-            }
-            if (tmp.get(0).equals("Humidity")){
-                ((TextView)findViewById(R.id.txtHumidity)).setText(tmp.get(1) + "%");
-            }
+//            if (tmp.get(0).equals("Temperature")){
+//                ((TextView)findViewById(R.id.txtTemperature)).setText(tmp.get(1) + "°C");
+//            }
+//            if (tmp.get(0).equals("Humidity")){
+//                ((TextView)findViewById(R.id.txtHumidity)).setText(tmp.get(1) + "%");
+//            }
             if (tmp.get(0).equals("LED")){
                 if (tmp.get(1).equals("1")) {
-                    ((ToggleButton) findViewById(R.id.btnLED)).setChecked(true);
+                    ((Switch) findViewById(R.id.btnLed)).setChecked(true);
                     ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_on);
                 }
                 else {
-                    ((ToggleButton) findViewById(R.id.btnLED)).setChecked(false);
+                    ((Switch) findViewById(R.id.btnLed)).setChecked(false);
                     ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_off);
                 }
             }
@@ -177,12 +149,12 @@ public class LedActivity extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.led_activity);
 
-        btnLED = findViewById(R.id.btnLED);
+        btnLED = findViewById(R.id.btnLed);
         img_icon = findViewById(R.id.imgView);
 
 
 
-        LinearLayout linearLayout = findViewById(R.id.ledActivity);
+        RelativeLayout linearLayout = findViewById(R.id.ledActivity);
         linearLayout.setOnTouchListener(new OnSwipeTouchListener(LedActivity.this) {
             public void onSwipeRight() {
                 Intent intent = new Intent(LedActivity.this, HomeActivity.class);

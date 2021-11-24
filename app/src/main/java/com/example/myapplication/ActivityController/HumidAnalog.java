@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import az.plainpie.PieView;
+
 public class HumidAnalog extends AppCompatActivity {
 
     private static final String TAG = "HumidAnalog";
@@ -45,7 +48,7 @@ public class HumidAnalog extends AppCompatActivity {
 
 
     MQTTHelper mqttHelper;
-    TextView txtHumi;
+    PieView txtHumi;
     public String humiUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
 
     private class GetLastData extends AsyncTask<String,Void,String>
@@ -106,11 +109,12 @@ public class HumidAnalog extends AppCompatActivity {
         @Override
         protected void onPostExecute(String temp) {
             List<String> tmp = Arrays.asList(temp.split(" "));
-            if (tmp.get(0).equals("Temperature")){
-                ((TextView)findViewById(R.id.txtTemperature)).setText(tmp.get(1) + "°C");
-            }
+//            if (tmp.get(0).equals("Temperature")){
+//                ((TextView)findViewById(R.id.txtTemperature)).setText(tmp.get(1) + "°C");
+//            }
             if (tmp.get(0).equals("Humidity")){
-                ((TextView)findViewById(R.id.txtHumidity)).setText(tmp.get(1) + "%");
+                ((PieView)findViewById(R.id.pieView)).setInnerText(tmp.get(1) + "%");
+                ((PieView)findViewById(R.id.pieView)).setPercentage(Integer.parseInt(tmp.get(1)));
             }
 //            if (tmp.get(0).equals("LED")){
 //                if (tmp.get(1).equals("1"))
@@ -134,9 +138,8 @@ public class HumidAnalog extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.humid_analog);
 
-        txtHumi = findViewById(R.id.txtHumidity);
+        txtHumi = (PieView) findViewById(R.id.pieView);
 //        btnLED = findViewById(R.id.btnLED);
-
 
 
         LinearLayout linearLayout = findViewById(R.id.humidAnalog);
@@ -157,8 +160,6 @@ public class HumidAnalog extends AppCompatActivity {
 
         (new HumidAnalog.GetLastData(this)).execute(humiUrl);
         startMQTT();
-
-
     }
 
     private void startMQTT(){
@@ -178,7 +179,8 @@ public class HumidAnalog extends AppCompatActivity {
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 if (topic.contains("taunhatquang/feeds/humidity")){
                     Log.d("humidity", message.toString());
-                    txtHumi.setText(message.toString()+"%");
+                    txtHumi.setInnerText(message.toString()+"%");
+                    ((PieView)findViewById(R.id.pieView)).setPercentage(Integer.parseInt(message.toString()));
                 }
             }
 
