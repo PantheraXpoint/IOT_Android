@@ -247,15 +247,17 @@ public class HumidAnalog extends AppCompatActivity {
                 if (topic.contains("taunhatquang/feeds/watering")){
                     if (message.toString().equals("1")){
                         waterHose.setChecked(true);
+                        ((Switch) findViewById(R.id.watering)).setChecked(true);
                     }
                     else {
                         waterHose.setChecked(false);
+                        ((Switch) findViewById(R.id.watering)).setChecked(false);
                     }
                 }
                 if (topic.contains("taunhatquang/feeds/ac")){
                     airConditioner.setValue(Float.parseFloat(message.toString()));
+                    ((Slider)findViewById(R.id.slider)).setValue(Float.parseFloat(message.toString()));
                 }
-
             }
 
             @Override

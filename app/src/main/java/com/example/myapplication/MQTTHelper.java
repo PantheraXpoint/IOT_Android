@@ -44,11 +44,6 @@ public class MQTTHelper {
             "humidity","temperature","bbc-led"
     };
 
-//    final String subscriptionTopic = "RinnnnN/f/+";
-//
-//
-//    final String username = "RinnnnN";
-//    final String password = "aio_ODUb23Kq7XQCfkZ0L1c8OkViqmol";
 
     public MqttAndroidClient mqttAndroidClient;
 
