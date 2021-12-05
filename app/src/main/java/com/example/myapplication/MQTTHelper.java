@@ -28,11 +28,6 @@ public class MQTTHelper {
 
     final String serverUri = "tcp://io.adafruit.com:1883";
 
-
-    String tempUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/temperature";
-    String humiUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
-    String ledUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/bbc-led";
-
     private String clientId = "";
     final String subscriptionTopic = "taunhatquang/feeds";
 
@@ -41,7 +36,7 @@ public class MQTTHelper {
     final String password = BuildConfig.PASSWORD;
 
     final String [] feeds = {
-            "humidity","temperature","bbc-led"
+            "humidity","temperature","bbc-led", "ac", "watering"
     };
 
 
@@ -116,7 +111,7 @@ public class MQTTHelper {
 
     private void subscribeToTopic() {
         try {
-            for(int i = 0; i < 3; i++){
+            for(int i = 0; i < feeds.length; i++){
                 mqttAndroidClient.subscribe(subscriptionTopic + "/" + feeds[i], 0, null, new IMqttActionListener() {
                     @Override
                     public void onSuccess(IMqttToken asyncActionToken) {

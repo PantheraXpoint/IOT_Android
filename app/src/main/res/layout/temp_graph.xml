@@ -8,14 +8,6 @@
     android:id="@+id/tempGraph"
     tools:context=".TempGraphActivity">
 
-    <!--    <LinearLayout-->
-    <!--        android:orientation="vertical"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent">-->
-    <!--    <TextView-->
-    <!--        android:id="@+id/textSpacerNo3"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="150dp"/>-->
     <com.github.mikephil.charting.charts.LineChart
         android:layout_weight="8"
         android:id="@+id/lineChart"
@@ -94,14 +86,26 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
             <com.airbnb.lottie.LottieAnimationView
+                android:scaleY="0.8"
+                android:scaleX="0.8"
+                android:paddingTop="120dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:lottie_url="https://assets1.lottiefiles.com/packages/lf20_lpygncvl.json"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"/>
+            <com.romainpiel.shimmer.ShimmerTextView
+                android:id="@+id/shimmer_tempg"
+                android:paddingTop="154dp"
+                android:text="general view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#444"
+                android:textSize="35dp"
+                app:reflectionColor="@color/teal_700"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

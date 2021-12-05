@@ -40,49 +40,63 @@
         <GridLayout
             android:layout_width="match_parent"
             android:columnCount="2"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="60dp"
-            android:padding="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="50dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="230dp">
 
-            <RelativeLayout
+            <LinearLayout
+
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/design_default_color_primary"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
                 >
                 <TextView
                     android:drawableTop="@drawable/ic_water_drop_baseline_invert_colors_24"
-                    android:paddingTop="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
                     android:textColor="@color/white"
-                    android:gravity="center"
-                    android:scaleX="2.5"
-                    android:scaleY="2.5"
+                    android:scaleX="2"
+                    android:scaleY="2"
                     android:drawableTint="@color/white"
                     android:textStyle="bold"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
-                <Switch
-                    android:id="@+id/wateringTemp"
-                    android:paddingRight="30dp"
-                    android:paddingTop="70dp"
-                    android:scaleY="1.5"
-                    android:scaleX="1.5"
+                <TextView
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    />
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_theme"
+                    >
+                    <Switch
+                        android:id="@+id/wateringTemp"
+                        android:layoutDirection="ltr"
+                        android:text="Water Pump"
+                        android:textSize="12dp"
+                        android:textColor="@color/white"
+                        android:paddingLeft="85dp"
+                        android:paddingRight="75dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:scaleX="2"
+                        android:scaleY="2" />
+                </RelativeLayout>
+            </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
-                android:background="@color/design_default_color_primary"
+                android:background="@drawable/rounded_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -101,7 +115,12 @@
                     android:layout_height="wrap_content">
                 </TextView>
                 <TextView
-                    android:layout_width="15dp"
+                    android:layout_width="wrap_content"
+                    android:text="AC"
+                    android:paddingLeft="20dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     />
@@ -113,10 +132,11 @@
                     android:stepSize="1"
                     android:valueFrom="15"
                     android:valueTo="30"
-                    app:haloColor="@color/colorAccent"
-                    app:thumbColor="@color/colorPrimaryDark"
-                    app:trackColor="@color/colorAccent"
-                    app:tickColor="@color/colorPrimary"
+                    app:haloColor="@color/teal_200"
+                    app:thumbColor="@color/teal_200"
+                    app:trackColorInactive="@color/white"
+                    app:trackColorActive="@color/teal_200"
+                    app:tickColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -127,8 +147,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+            <com.romainpiel.shimmer.ShimmerTextView
+                android:id="@+id/shimmer_temp"
+                android:paddingTop="70dp"
+                android:paddingLeft="100dp"
+                android:text="detail view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#444"
+                android:textSize="35dp"
+                app:reflectionColor="@color/teal_700"/>
             <com.airbnb.lottie.LottieAnimationView
+                android:scaleY="0.9"
+                android:scaleX="0.9"
+                android:paddingTop="25dp"
                 android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

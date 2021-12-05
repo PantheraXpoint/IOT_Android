@@ -22,6 +22,8 @@ import com.example.myapplication.MQTTHelper;
 import com.example.myapplication.OnSwipeTouchListener;
 import com.example.myapplication.R;
 import com.google.android.material.slider.Slider;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -57,6 +59,8 @@ public class HumidAnalog extends AppCompatActivity {
     PieView txtHumi;
     Switch waterHose;
     Slider airConditioner;
+    Shimmer shimmer = new Shimmer();
+    ShimmerTextView humid;
     public String humiUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
     public String acUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/ac";
     public String hoseUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/watering";
@@ -101,8 +105,8 @@ public class HumidAnalog extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            dialog.setTitle("Updating last data ...");
-            dialog.show();
+//            dialog.setTitle("Updating last data ...");
+//            dialog.show();
         }
 
         @Override
@@ -139,6 +143,13 @@ public class HumidAnalog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.humid_analog);
+
+
+        shimmer.setDuration(5000)
+                .setStartDelay(1000)
+                .setDirection(Shimmer.ANIMATION_DIRECTION_RTL);
+        humid = (ShimmerTextView) findViewById(R.id.shimmer_humi);
+        shimmer.start(humid);
 
         txtHumi = (PieView) findViewById(R.id.pieView);
         waterHose = findViewById(R.id.watering);

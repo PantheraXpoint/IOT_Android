@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,6 +25,8 @@ import com.example.myapplication.OnSwipeTouchListener;
 import com.example.myapplication.R;
 import com.example.myapplication.TempGraphActivity;
 import com.google.android.material.slider.Slider;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -58,6 +61,8 @@ public class TempAnalog extends AppCompatActivity {
     PieView txtTemp;
     Switch waterHose;
     Slider airConditioner;
+    ShimmerTextView temp;
+    Shimmer shimmer = new Shimmer();
     public String tempUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/temperature";
     public String acUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/ac";
     public String hoseUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/watering";
@@ -101,16 +106,16 @@ public class TempAnalog extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            dialog.setTitle("Updating last data ...");
-            dialog.show();
+//            dialog.setTitle("Updating last data ...");
+//            dialog.show();
         }
 
         @Override
         protected void onPostExecute(String temp) {
             List<String> tmp = Arrays.asList(temp.split(" "));
             if (tmp.get(0).equals("Temperature")){
-                ((PieView)findViewById(R.id.pieViewTemp)).setInnerText(tmp.get(1) + "°C");
                 ((PieView)findViewById(R.id.pieViewTemp)).setPercentage(Integer.parseInt(tmp.get(1)));
+                ((PieView)findViewById(R.id.pieViewTemp)).setInnerText(tmp.get(1) + "°C");
             }
             if (tmp.get(0).equals("Watering")){
                 if (tmp.get(1).equals("1")) {
@@ -138,10 +143,18 @@ public class TempAnalog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.temp_analog);
 
+
+        shimmer.setDuration(10000)
+                .setStartDelay(1000)
+                .setDirection(Shimmer.ANIMATION_DIRECTION_RTL);
+        temp = (ShimmerTextView) findViewById(R.id.shimmer_temp);
+        shimmer.start(temp);
+
         txtTemp = findViewById(R.id.pieViewTemp);
         waterHose = findViewById(R.id.wateringTemp);
         airConditioner = findViewById(R.id.sliderTemp);
 
+        txtTemp.setPercentageBackgroundColor(getResources().getColor(R.color.teal_200));
 
 
         LinearLayout linearLayout = findViewById(R.id.tempAnalog);
@@ -248,8 +261,8 @@ public class TempAnalog extends AppCompatActivity {
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 if (topic.contains("taunhatquang/feeds/temperature")){
-                    txtTemp.setInnerText(message.toString()+"°C");
                     ((PieView)findViewById(R.id.pieViewTemp)).setPercentage(Integer.parseInt(message.toString()));
+                    txtTemp.setInnerText(message.toString()+"°C");
                 }
                 if (topic.contains("taunhatquang/feeds/watering")){
                     if (message.toString().equals("1")){

@@ -26,24 +26,64 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
-        <Switch
-            android:layout_gravity="center"
-            android:id="@+id/btnLed"
-            android:scaleY="3"
-            android:scaleX="3"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"/>
-        <!--        <ToggleButton-->
-        <!--            android:id="@+id/btnLED"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:background="@drawable/toggle_selector"-->
 
-        <!--            android:checked="false"-->
-        <!--            android:layout_gravity="center"-->
-        <!--            android:text=""-->
-        <!--            android:textOff=""-->
-        <!--            android:textOn="" />-->
+<!--        <Switch-->
+<!--            android:layout_gravity="center"-->
+<!--            android:id="@+id/btnLed"-->
+<!--            android:thumb="@drawable/my_thumb"-->
+<!--            android:track="@drawable/my_track"-->
+<!--            android:scaleY="1"-->
+<!--            android:scaleX="1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="100dp"/>-->
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+            <TextView
+                android:drawableTop="@drawable/ic_water_drop_baseline_invert_colors_24"
+                android:paddingTop="15dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/white"
+                android:scaleX="2"
+                android:scaleY="2"
+                android:drawableTint="@color/white"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_theme"
+                >
+                <Switch
+                    android:layout_gravity="center"
+                    android:id="@+id/btnLed"
+                    android:layoutDirection="ltr"
+                    android:text="Lighting System"
+                    android:textSize="25dp"
+                    android:textColor="@color/white"
+                    android:thumb="@drawable/my_thumb"
+                    android:track="@drawable/my_track"
+                    android:scaleY="1"
+                    android:scaleX="1"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 

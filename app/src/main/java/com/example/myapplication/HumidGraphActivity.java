@@ -20,6 +20,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 
 import static java.lang.Integer.parseInt;
 
@@ -28,6 +30,8 @@ public class HumidGraphActivity extends AppCompatActivity {
     private boolean isRunning = false;
     private LineChart chart;
     private Thread thread;
+    Shimmer shimmer = new Shimmer();
+    ShimmerTextView humi_graph;
     String tempUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
     int tempAPI = 0;
     int tem = 1;
@@ -37,6 +41,13 @@ public class HumidGraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.humid_graph);
+
+
+        shimmer.setDuration(10000)
+                .setStartDelay(1000)
+                .setDirection(Shimmer.ANIMATION_DIRECTION_LTR);
+        humi_graph = (ShimmerTextView) findViewById(R.id.shimmer_humig);
+        shimmer.start(humi_graph);
 
         chart = findViewById(R.id.lineChart);
         initChart();
