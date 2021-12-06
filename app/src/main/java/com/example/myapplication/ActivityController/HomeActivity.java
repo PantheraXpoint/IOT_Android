@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.myapplication.HumidGraphActivity;
 import com.example.myapplication.LedActivity;
@@ -28,10 +29,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        RelativeLayout tempBtn = findViewById(R.id.tempBtn);
-        RelativeLayout humidBtn = findViewById(R.id.humidBtn);
-        RelativeLayout ledBtn = findViewById(R.id.ledBtn);
-        RelativeLayout alarmBtn = findViewById(R.id.Alarm);
+        LinearLayout tempBtn = findViewById(R.id.tempBtn);
+        LinearLayout humidBtn = findViewById(R.id.humidBtn);
+        LinearLayout ledBtn = findViewById(R.id.ledBtn);
+        LinearLayout alarmBtn = findViewById(R.id.alarmBtn);
 
         tempBtn.setOnClickListener(new View.OnClickListener() {
             @Override
