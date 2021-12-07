@@ -1,10 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/page_1"
-        android:enabled="true"
-        android:title="item 1"/>
+        android:id="@+id/menuHome"
+        android:icon="@drawable/ic_home"
+        android:title="Home">
+    </item>
     <item
-        android:id="@+id/page_2"
-        android:enabled="true"
-        android:title="item 2"/>
+        android:id="@+id/menuHistory"
+        android:icon="@drawable/ic_history"
+        android:title="Log">
+    </item>
+    <item
+        android:id="@+id/menuProfile"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile">
+    </item>
+    <item
+        android:id="@+id/menuSettings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings">
+    </item>
 </menu>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="nav_view">
+        <group android:checkableBehavior="single">
+                <item android:id="@+id/roomSelection"
+                        android:title="Room Selection">
+                        <menu>
+                                <item
+                                    android:id="@+id/livingRoom"
+                                    android:icon="@drawable/living_room"
+                                    android:title="Living Room">
+                                </item>
+                                <item
+                                    android:id="@+id/kitchen"
+                                    android:icon="@drawable/kitchen"
+                                    android:title="Kitchen">
+                                </item>
+                                <item
+                                    android:id="@+id/bathRoom"
+                                    android:icon="@drawable/bathtub"
+                                    android:title="Bath Room">
+                                </item>
+                                <item
+                                    android:id="@+id/bedRoom"
+                                    android:icon="@drawable/beds"
+                                    android:title="Bed Room">
+                                </item>
+                        </menu>
+                </item>
+        </group>
+
+        <group android:checkableBehavior="single">
+                <item android:id="@+id/History"
+                android:title="History">
+                        <menu>
+                                <item
+                                    android:id="@+id/menuHistory"
+                                    android:icon="@drawable/ic_history"
+                                    android:title="History Log">
+                                </item>
+                        </menu>
+                </item>
+        </group>
+
+        <group android:checkableBehavior="single">
+                <item android:id="@+id/Profile"
+                        android:title="Profile">
+                        <menu>
+                                <item
+                                    android:id="@+id/menuProfile"
+                                    android:icon="@drawable/ic_profile"
+                                    android:title="My Profile">
+                                </item>
+                        </menu>
+                </item>
+        </group>
+
+        <group android:checkableBehavior="single">
+                <item android:id="@+id/Settings"
+                    android:title="Settings">
+                        <menu>
+                                <item
+                                    android:id="@+id/menuSettings"
+                                    android:icon="@drawable/ic_settings"
+                                    android:title="General">
+                                </item>
+                        </menu>
+                </item>
+        </group>
+
+
+</menu>
