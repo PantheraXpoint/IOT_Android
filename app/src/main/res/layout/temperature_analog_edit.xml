@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/MistyRose"
+        app:flexDirection="column"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        >
+
+<!--Header-->
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:padding="10dp"
+            app:alignItems="center"
+            app:justifyContent="space_between"
+            >
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/back_arrow"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_palegoldenrod"
+                android:padding="10dp"
+                android:text="Temperature"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                />
+
+        </com.google.android.flexbox.FlexboxLayout>
+<!--Analog Container-->
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            app:flexDirection="row"
+            >
+<!--Thermometer-->
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="450dp"
+                android:layout_height="match_parent"
+                app:flexDirection="column"
+                app:justifyContent="space_evenly"
+                >
+
+                <com.biansemao.widget.ThermometerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"
+                    app:curScaleValue="14dp"
+                    app:scaleTextColor="@color/black"
+                    app:scaleTextSize="20dp"
+                    app:unitTextColor="@color/black"
+                    app:unitTextSize="20dp"
+                    app:viewBg="@color/MistyRose"
+                />
+            </com.google.android.flexbox.FlexboxLayout>
+<!--Buttons-->
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:alignItems="center"
+                app:flexDirection="column"
+                app:justifyContent="space_evenly"
+                >
+
+                <az.plainpie.PieView
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    app:inner_pie_padding="20"
+                    app:inner_text="36*C"
+                    app:percentage="67"
+                    />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/rounded_ghostwhite"
+                    app:alignItems="center"
+                    app:flexDirection="column"
+                    app:justifyContent="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/power_button"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Water Pump"
+                        android:textStyle="bold"
+                        />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/rounded_ghostwhite"
+                    app:alignItems="center"
+                    app:flexDirection="column"
+                    app:justifyContent="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/air_conditioner"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AC"
+                        />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/rounded_ghostwhite"
+                    app:alignItems="center"
+                    app:flexDirection="column"
+                    app:justifyContent="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/line_graph"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Graph"
+                        />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.flexbox.FlexboxLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
