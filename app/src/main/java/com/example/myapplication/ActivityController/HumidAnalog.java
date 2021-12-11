@@ -3,6 +3,7 @@ package com.example.myapplication.ActivityController;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -58,9 +59,6 @@ public class HumidAnalog extends AppCompatActivity {
     MQTTHelper mqttHelper;
     PieView txtHumi;
     Switch waterHose;
-    Slider airConditioner;
-    Shimmer shimmer = new Shimmer();
-    ShimmerTextView humid;
     public String humiUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
     public String acUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/ac";
     public String hoseUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/watering";
@@ -114,19 +112,16 @@ public class HumidAnalog extends AppCompatActivity {
             List<String> tmp = Arrays.asList(temp.split(" "));
 
             if (tmp.get(0).equals("Humidity")){
-                ((PieView)findViewById(R.id.pieView)).setInnerText(tmp.get(1) + "%");
-                ((PieView)findViewById(R.id.pieView)).setPercentage(Integer.parseInt(tmp.get(1)));
+                ((PieView)findViewById(R.id.pieViewHumid)).setInnerText(tmp.get(1) + "%");
+                ((PieView)findViewById(R.id.pieViewHumid)).setPercentage(Integer.parseInt(tmp.get(1)));
             }
             if (tmp.get(0).equals("Watering")){
                 if (tmp.get(1).equals("1")) {
-                    ((Switch) findViewById(R.id.watering)).setChecked(true);
+                    ((Switch) findViewById(R.id.wateringHumid)).setChecked(true);
                 }
                 else {
-                    ((Switch) findViewById(R.id.watering)).setChecked(false);
+                    ((Switch) findViewById(R.id.wateringHumid)).setChecked(false);
                 }
-            }
-            if (tmp.get(0).equals("AC")){
-                ((Slider)findViewById(R.id.slider)).setValue(Float.parseFloat(tmp.get(1)));
             }
             if (dialog.isShowing())
                 dialog.dismiss();
@@ -145,23 +140,16 @@ public class HumidAnalog extends AppCompatActivity {
         setContentView(R.layout.humid_analog);
 
 
-        shimmer.setDuration(5000)
-                .setStartDelay(1000)
-                .setDirection(Shimmer.ANIMATION_DIRECTION_RTL);
-        humid = (ShimmerTextView) findViewById(R.id.shimmer_humi);
-        shimmer.start(humid);
-
-        txtHumi = (PieView) findViewById(R.id.pieView);
-        waterHose = findViewById(R.id.watering);
-        airConditioner = findViewById(R.id.slider);
+        txtHumi = (PieView) findViewById(R.id.pieViewHumid);
+        waterHose = findViewById(R.id.wateringHumid);
 
 
-        LinearLayout linearLayout = findViewById(R.id.humidAnalog);
-        linearLayout.setOnTouchListener(new OnSwipeTouchListener(HumidAnalog.this) {
+        ConstraintLayout constraintLayout = findViewById(R.id.humidAnalog);
+        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(HumidAnalog.this) {
             public void onSwipeRight() {
                 Intent intent = new Intent(HumidAnalog.this, HomeActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+//                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();
             }
             public void onSwipeLeft() {
@@ -179,36 +167,19 @@ public class HumidAnalog extends AppCompatActivity {
                     Log.d("mqtt","Button is checked");
 
                     sendDataMQTT("taunhatquang/feeds/watering","1");
-                    ((Switch) findViewById(R.id.watering)).setChecked(true);
+                    ((Switch) findViewById(R.id.wateringHumid)).setChecked(true);
                     list.add(new HumidAnalog.MQTTMessage("taunhatquang/feeds/watering","1"));
                 }
                 else{
                     Log.d("mqtt","Button is unchecked");
                     sendDataMQTT("taunhatquang/feeds/watering","0");
-                    ((Switch) findViewById(R.id.watering)).setChecked(false);
+                    ((Switch) findViewById(R.id.wateringHumid)).setChecked(false);
                     list.add(new HumidAnalog.MQTTMessage("taunhatquang/feeds/watering","0"));
                 }
             }
         });
 
-        airConditioner.addOnSliderTouchListener( new Slider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
-                float values = slider.getValue();
-                Log.d("SliderPreviousValue", String.valueOf(values));
-            }
-
-            @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                float values = slider.getValue();
-                Log.d("SliderAfterValue", String.valueOf(values));
-                sendDataMQTT("taunhatquang/feeds/ac",String.valueOf(values));
-                ((Slider)findViewById(R.id.slider)).setValue(values);
-                list.add(new HumidAnalog.MQTTMessage("taunhatquang/feeds/ac",String.valueOf(values)));
-            }
-        });
         (new HumidAnalog.GetLastData(this)).execute(humiUrl);
-        (new HumidAnalog.GetLastData(this)).execute(acUrl);
         (new HumidAnalog.GetLastData(this)).execute(hoseUrl);
         startMQTT();
     }
@@ -253,21 +224,17 @@ public class HumidAnalog extends AppCompatActivity {
                 if (topic.contains("taunhatquang/feeds/humidity")){
                     Log.d("humidity", message.toString());
                     txtHumi.setInnerText(message.toString()+"%");
-                    ((PieView)findViewById(R.id.pieView)).setPercentage(Integer.parseInt(message.toString()));
+                    ((PieView)findViewById(R.id.pieViewHumid)).setPercentage(Integer.parseInt(message.toString()));
                 }
                 if (topic.contains("taunhatquang/feeds/watering")){
                     if (message.toString().equals("1")){
                         waterHose.setChecked(true);
-                        ((Switch) findViewById(R.id.watering)).setChecked(true);
+                        ((Switch) findViewById(R.id.wateringHumid)).setChecked(true);
                     }
                     else {
                         waterHose.setChecked(false);
-                        ((Switch) findViewById(R.id.watering)).setChecked(false);
+                        ((Switch) findViewById(R.id.wateringHumid)).setChecked(false);
                     }
-                }
-                if (topic.contains("taunhatquang/feeds/ac")){
-                    airConditioner.setValue(Float.parseFloat(message.toString()));
-                    ((Slider)findViewById(R.id.slider)).setValue(Float.parseFloat(message.toString()));
                 }
             }
 

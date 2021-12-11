@@ -8,35 +8,57 @@
     android:id="@+id/tempGraph"
     tools:context=".TempGraphActivity">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:layout_weight="8"
-        android:id="@+id/lineChart"
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_heightPercent="75%"
-        app:layout_marginStartPercent="5%"
-        app:layout_marginTopPercent="10%"
-        app:layout_widthPercent="90%" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_weight="8"
-        android:id="@+id/guideline"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-    <!--    </LinearLayout>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_weight="2"
-            android:gravity="center"
+        android:layout_height="match_parent"
+        app:flexDirection="column"
+        >
+        <!--        Header-->
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="wrap_content"
+            app:flexDirection="row"
+            android:padding="10dp"
+            app:justifyContent="space_between"
+            android:background="@color/MistyRose"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/back_arrow"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_palegoldenrod"
+                android:padding="10dp"
+                android:text="Temperature"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <!--        Chart-->
+        <com.github.mikephil.charting.charts.LineChart
+            android:layout_weight="8"
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            app:layout_heightPercent="75%"
+            app:layout_marginStartPercent="5%"
+            app:layout_marginTopPercent="10%"
+            app:layout_widthPercent="90%"
+            android:background="@color/MistyRose"
+            />
+        <!--        Buttons-->
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexDirection="row"
+            app:justifyContent="space_evenly"
+            android:padding="10dp"
+            >
             <Button
                 android:id="@+id/button_RunData"
                 android:layout_width="wrap_content"
@@ -49,11 +71,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
-            <TextView
-                android:layout_width="20dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                />
+
             <Button
                 android:id="@+id/button_Stop"
                 android:layout_width="wrap_content"
@@ -66,11 +84,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_RunData"
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
-            <TextView
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                />
             <Button
                 android:id="@+id/button_Reset"
                 android:layout_width="wrap_content"
@@ -83,29 +96,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_Stop"
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <com.airbnb.lottie.LottieAnimationView
-                android:scaleY="0.8"
-                android:scaleX="0.8"
-                android:paddingTop="120dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:lottie_url="https://assets1.lottiefiles.com/packages/lf20_lpygncvl.json"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"/>
-            <com.romainpiel.shimmer.ShimmerTextView
-                android:id="@+id/shimmer_tempg"
-                android:paddingTop="154dp"
-                android:text="general view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#444"
-                android:textSize="35dp"
-                app:reflectionColor="@color/teal_700"/>
-        </LinearLayout>
-    </LinearLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </com.google.android.flexbox.FlexboxLayout>
 </LinearLayout>
+

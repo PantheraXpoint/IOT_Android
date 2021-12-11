@@ -3,6 +3,7 @@ package com.example.myapplication.ActivityController;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.Animator;
 import android.app.Activity;
@@ -24,6 +25,7 @@ import com.example.myapplication.MQTTHelper;
 import com.example.myapplication.OnSwipeTouchListener;
 import com.example.myapplication.R;
 import com.example.myapplication.TempGraphActivity;
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.slider.Slider;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
@@ -60,7 +62,6 @@ public class TempAnalog extends AppCompatActivity {
     MQTTHelper mqttHelper;
     PieView txtTemp;
     Switch waterHose;
-    Slider airConditioner;
     ShimmerTextView temp;
     Shimmer shimmer = new Shimmer();
     public String tempUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/temperature";
@@ -125,9 +126,6 @@ public class TempAnalog extends AppCompatActivity {
                     ((Switch) findViewById(R.id.wateringTemp)).setChecked(false);
                 }
             }
-            if (tmp.get(0).equals("AC")){
-                ((Slider)findViewById(R.id.sliderTemp)).setValue(Float.parseFloat(tmp.get(1)));
-            }
             if (dialog.isShowing())
                 dialog.dismiss();
         }
@@ -143,26 +141,18 @@ public class TempAnalog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.temp_analog);
 
-
-        shimmer.setDuration(10000)
-                .setStartDelay(1000)
-                .setDirection(Shimmer.ANIMATION_DIRECTION_RTL);
-        temp = (ShimmerTextView) findViewById(R.id.shimmer_temp);
-        shimmer.start(temp);
-
         txtTemp = findViewById(R.id.pieViewTemp);
         waterHose = findViewById(R.id.wateringTemp);
-        airConditioner = findViewById(R.id.sliderTemp);
 
         txtTemp.setPercentageBackgroundColor(getResources().getColor(R.color.teal_200));
 
 
-        LinearLayout linearLayout = findViewById(R.id.tempAnalog);
-        linearLayout.setOnTouchListener(new OnSwipeTouchListener(TempAnalog.this) {
+        ConstraintLayout constraintLayout = findViewById(R.id.tempAnalog);
+        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(TempAnalog.this) {
             public void onSwipeRight() {
                 Intent intent = new Intent(TempAnalog.this, HomeActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+//                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();
             }
             public void onSwipeLeft() {
@@ -196,26 +186,8 @@ public class TempAnalog extends AppCompatActivity {
             }
         });
 
-        airConditioner.addOnSliderTouchListener( new Slider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
-                float values = slider.getValue();
-                Log.d("SliderPreviousValue", String.valueOf(values));
-            }
-
-            @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                float values = slider.getValue();
-                Log.d("SliderAfterValue", String.valueOf(values));
-                sendDataMQTT("taunhatquang/feeds/ac",String.valueOf(values));
-                airConditioner.setValue(Float.parseFloat(String.valueOf(values)));
-                ((Slider)findViewById(R.id.sliderTemp)).setValue(values);
-                list.add(new TempAnalog.MQTTMessage("taunhatquang/feeds/ac",String.valueOf(values)));
-            }
-        });
 
         (new TempAnalog.GetLastData(this)).execute(tempUrl);
-        (new TempAnalog.GetLastData(this)).execute(acUrl);
         (new TempAnalog.GetLastData(this)).execute(hoseUrl);
 
         startMQTT();
@@ -273,10 +245,6 @@ public class TempAnalog extends AppCompatActivity {
                         waterHose.setChecked(false);
                         ((Switch) findViewById(R.id.wateringTemp)).setChecked(false);
                     }
-                }
-                if (topic.contains("taunhatquang/feeds/ac")){
-                    airConditioner.setValue(Float.parseFloat(message.toString()));
-                    ((Slider)findViewById(R.id.sliderTemp)).setValue(Float.parseFloat(message.toString()));
                 }
             }
 

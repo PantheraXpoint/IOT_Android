@@ -5,23 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/ledActivity"
-    tools:context=".LedActivity">
+    android:id="@+id/ac_activity"
+    tools:context=".ActivityAC">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp">
+        <Switch
+            android:layout_width="1dp"
+            android:layout_height="1dp"/>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ledLayout"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="150dp"
         android:orientation="vertical">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:paddingTop="50dp"
-            android:id="@+id/ledLottie"
+            android:id="@+id/acLottie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -29,7 +30,7 @@
             android:scaleY="1.5"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_url="https://assets6.lottiefiles.com/packages/lf20_kw63gljk.json" />
+            app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_qb88rukr.json"/>
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/imgView"
+            android:id="@+id/acImg"
             android:layout_gravity="center"
             android:paddingBottom="120dp"
             android:layout_width="wrap_content"
@@ -47,3 +48,4 @@
     </LinearLayout>
 
 </LinearLayout>
+

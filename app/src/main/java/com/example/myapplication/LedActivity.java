@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +22,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.myapplication.ActivityController.HomeActivity;
 import com.example.myapplication.ActivityController.MainActivity;
 
@@ -46,12 +51,10 @@ public class LedActivity extends AppCompatActivity {
     int waiting_period = 0;
     boolean send_message_again = false;
     List<LedActivity.MQTTMessage> list = new ArrayList<>();
-
-
+    LottieAnimationView lottie;
+    boolean isOn;
     MQTTHelper mqttHelper;
-    Switch btnLED;
     ImageView img_icon;
-    boolean isChecked = false;
     //
 //
 
@@ -114,12 +117,18 @@ public class LedActivity extends AppCompatActivity {
 //            }
             if (tmp.get(0).equals("LED")){
                 if (tmp.get(1).equals("1")) {
-                    ((Switch) findViewById(R.id.btnLed)).setChecked(true);
+                    isOn = true;
                     ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_on);
+                    lottie.setRepeatCount(0);
+                    lottie.setSpeed(4);
+                    lottie.playAnimation();
                 }
                 else {
-                    ((Switch) findViewById(R.id.btnLed)).setChecked(false);
+                    isOn = false;
                     ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_off);
+                    lottie.setRepeatCount(0);
+                    lottie.setSpeed(-12);
+                    lottie.playAnimation();
                 }
             }
             if (dialog.isShowing())
@@ -138,41 +147,44 @@ public class LedActivity extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.led_activity);
 
-        btnLED = findViewById(R.id.btnLed);
-        img_icon = findViewById(R.id.imgView);
+        lottie = findViewById(R.id.ledLottie);
 
+        img_icon = (ImageView)findViewById(R.id.imgView);
 
+        lottie.setSpeed(0);
 
-        RelativeLayout linearLayout = findViewById(R.id.ledActivity);
+        LinearLayout linearLayout = findViewById(R.id.ledActivity);
         linearLayout.setOnTouchListener(new OnSwipeTouchListener(LedActivity.this) {
             public void onSwipeRight() {
                 Intent intent = new Intent(LedActivity.this, HomeActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+//                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+                finish();
+            }
+            public void onSwipeLeft() {
+                Intent intent = new Intent(LedActivity.this, ActivityAC.class);
+                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();
             }
         });
 
+        Drawable bmap = ((Drawable)img_icon.getDrawable());
 
-
-
-
-        btnLED.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        img_icon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck){
-//                btnLED.setVisibility(View.INVISIBLE);
-                if(isCheck == true){
-                    Log.d("mqtt","Button is checked");
-
-                    sendDataMQTT("taunhatquang/feeds/bbc-led","1");
-                    ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_on);
-                    list.add(new LedActivity.MQTTMessage("taunhatquang/feeds/bbc-led","1"));
+            public void onClick(View view) {
+                if (isOn == true){
+                    isOn = false;
+                    ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_off);
+                    sendDataMQTT("taunhatquang/feeds/bbc-led","0");
+                    list.add(new LedActivity.MQTTMessage("taunhatquang/feeds/bbc-led","0"));
                 }
                 else{
-                    Log.d("mqtt","Button is unchecked");
-                    sendDataMQTT("taunhatquang/feeds/bbc-led","0");
-                    ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_off);
-                    list.add(new LedActivity.MQTTMessage("taunhatquang/feeds/bbc-led","0"));
+                    isOn = true;
+                    ((ImageView) findViewById(R.id.imgView)).setImageResource(R.mipmap.led_on);
+                    sendDataMQTT("taunhatquang/feeds/bbc-led","1");
+                    list.add(new LedActivity.MQTTMessage("taunhatquang/feeds/bbc-led","1"));
                 }
             }
         });
@@ -180,6 +192,7 @@ public class LedActivity extends AppCompatActivity {
         (new LedActivity.GetLastData(this)).execute(ledUrl);
 //        setupScheduler();
         startMQTT();
+
 
 
     }
@@ -247,10 +260,18 @@ public class LedActivity extends AppCompatActivity {
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 if (topic.contains("taunhatquang/feeds/bbc-led")){
                     if (message.toString().equals("1")){
-                        btnLED.setChecked(true);
+//                        btnLED.setChecked(true);
+                        isOn = true;
+                        lottie.setRepeatCount(0);
+                        lottie.setSpeed(4);
+                        lottie.playAnimation();
                     }
                     else {
-                        btnLED.setChecked(false);
+//                        btnLED.setChecked(false);
+                        isOn = false;
+                        lottie.setRepeatCount(0);
+                        lottie.setSpeed(-12);
+                        lottie.playAnimation();
                     }
 
                 }

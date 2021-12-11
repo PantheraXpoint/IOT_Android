@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import java.util.Calendar;
 
 public class AlarmActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
     private TextView mTextView;
+    private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +44,23 @@ public class AlarmActivity extends AppCompatActivity implements TimePickerDialog
 
         mTextView = findViewById(R.id.textView);
 
-        RelativeLayout relativeLayout = findViewById(R.id.alarmActivity);
+        LinearLayout relativeLayout = findViewById(R.id.alarmActivity);
         relativeLayout.setOnTouchListener(new OnSwipeTouchListener(AlarmActivity.this) {
             public void onSwipeRight() {
                 Intent intent = new Intent(AlarmActivity.this, HomeActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+                finish();
+            }
+        });
+
+        imageView = (ImageView) findViewById(R.id.alarmBack);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AlarmActivity.this, HomeActivity.class);
+                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();
             }
         });

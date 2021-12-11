@@ -17,6 +17,7 @@
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".ActivityController.AlarmActivity"></activity>
         <activity android:name=".ActivityController.TempAnalog" />
+        <activity android:name=".ActivityAC" />
         <activity android:name=".ActivityController.HumidAnalog" />
         <activity android:name=".LedActivity" />
         <activity android:name=".HumidGraphActivity" />

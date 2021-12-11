@@ -30,8 +30,6 @@ public class HumidGraphActivity extends AppCompatActivity {
     private boolean isRunning = false;
     private LineChart chart;
     private Thread thread;
-    Shimmer shimmer = new Shimmer();
-    ShimmerTextView humi_graph;
     String tempUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/humidity";
     int tempAPI = 0;
     int tem = 1;
@@ -43,11 +41,6 @@ public class HumidGraphActivity extends AppCompatActivity {
         setContentView(R.layout.humid_graph);
 
 
-        shimmer.setDuration(10000)
-                .setStartDelay(1000)
-                .setDirection(Shimmer.ANIMATION_DIRECTION_LTR);
-        humi_graph = (ShimmerTextView) findViewById(R.id.shimmer_humig);
-        shimmer.start(humi_graph);
 
         chart = findViewById(R.id.lineChart);
         initChart();
@@ -62,7 +55,7 @@ public class HumidGraphActivity extends AppCompatActivity {
             public void onSwipeRight() {
                 Intent intent = new Intent(HumidGraphActivity.this, HumidAnalog.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+//                overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
                 finish();
             }
         });
