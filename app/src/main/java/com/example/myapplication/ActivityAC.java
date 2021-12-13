@@ -200,47 +200,59 @@ public class ActivityAC extends AppCompatActivity {
         });
 
 //        Option button icon
-        optionIcon = (ImageView)findViewById(R.id.optionImg);
-        optionIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isPopupWindowShown) {
-                    isPopupWindowShown = true;
-                    Log.d("isPopupWindowShown=", (isPopupWindowShown ? "true" : "false"));
-                    onButtonShowPopupWindowClick(v);
-                }
-                else {
-                    isPopupWindowShown = false;
-                    Log.d("isPopupWindowShown=", (isPopupWindowShown ? "true" : "false"));
-                }
-
-            }
-        });
+//        optionIcon = (ImageView)findViewById(R.id.optionImg);
+//        optionIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                isPopupWindowShown = true;
+//                Log.d("isPopupWindowShown=", (isPopupWindowShown ? "true" : "false"));
+//                onButtonShowPopupWindowClick(v);
+//
+//                if (isPopupWindowShown) {
+//                    Log.d("Condition=", (isPopupWindowShown ? "true" : "false"));
+//                    acSlider = findViewById(R.id.acSlider);
+//                    acSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+//                        @Override
+//                        public void onStartTrackingTouch(@NonNull Slider slider) {
+//                            float value = slider.getValue();
+//                        }
+//
+//                        @Override
+//                        public void onStopTrackingTouch(@NonNull Slider slider) {
+//                            float value = slider.getValue();
+//
+//                            sendDataMQTT(acFeed, String.valueOf(value));
+//
+//                            acSlider.setValue(Float.parseFloat(String.valueOf(value)));
+//
+//                            msgList.add(new ActivityAC.MQTTMessage(acFeed, String.valueOf(value)));
+//                        }
+//                    });
+//                }
+//
+//            }
+//
+//        });
 
 //        AC Slider
-        if (isPopupWindowShown) {
-            Log.d("isPopupWindowShown=", (isPopupWindowShown ? "true" : "false"));
-            acSlider = findViewById(R.id.acSlider);
-            acSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-                @Override
-                public void onStartTrackingTouch(@NonNull Slider slider) {
-                    float value = slider.getValue();
-                }
+        acSlider = findViewById(R.id.acSlider);
+        acSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+            @Override
+            public void onStartTrackingTouch(@NonNull Slider slider) {
+                float value = slider.getValue();
+            }
 
-                @Override
-                public void onStopTrackingTouch(@NonNull Slider slider) {
-                    float value = slider.getValue();
+            @Override
+            public void onStopTrackingTouch(@NonNull Slider slider) {
+                float value = slider.getValue();
 
-                    sendDataMQTT(acFeed, String.valueOf(value));
+                sendDataMQTT(acFeed, String.valueOf(value));
 
-                    acSlider.setValue(Float.parseFloat(String.valueOf(value)));
+                acSlider.setValue(Float.parseFloat(String.valueOf(value)));
 
-                    msgList.add(new ActivityAC.MQTTMessage(acFeed, String.valueOf(value)));
-                }
-            });
-
-            (new ActivityAC.GetLastData(this)).execute(acURL);
-        }
+                msgList.add(new ActivityAC.MQTTMessage(acFeed, String.valueOf(value)));
+            }
+        });
 
 
 //        Pie chart analog
@@ -251,7 +263,7 @@ public class ActivityAC extends AppCompatActivity {
 
 //        Update screen
         (new ActivityAC.GetLastData(this)).execute(acToggleURL);
-
+        (new ActivityAC.GetLastData(this)).execute(acURL);
 
         startMQTT();
     }
@@ -307,7 +319,9 @@ public class ActivityAC extends AppCompatActivity {
                         acLottie.setSpeed(0);
                         acLottie.playAnimation();
                     }
-                } else if (isPopupWindowShown && topic.contains(acFeed)) {
+                }
+
+                if (topic.contains(acFeed)) {
                     acSlider.setValue(Float.parseFloat(message.toString()));
                 }
             }
@@ -317,6 +331,31 @@ public class ActivityAC extends AppCompatActivity {
 
             }
         });
+    }
+
+//
+    private void updateAC() {
+        if (isPopupWindowShown) {
+            Log.d("Condition=", (isPopupWindowShown ? "true" : "false"));
+            acSlider = findViewById(R.id.acSlider);
+            acSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(@NonNull Slider slider) {
+                    float value = slider.getValue();
+                }
+
+                @Override
+                public void onStopTrackingTouch(@NonNull Slider slider) {
+                    float value = slider.getValue();
+
+                    sendDataMQTT(acFeed, String.valueOf(value));
+
+                    acSlider.setValue(Float.parseFloat(String.valueOf(value)));
+
+                    msgList.add(new ActivityAC.MQTTMessage(acFeed, String.valueOf(value)));
+                }
+            });
+        }
     }
 
 //    Open pop-up slider
@@ -331,15 +370,15 @@ public class ActivityAC extends AppCompatActivity {
 
         final PopupWindow popupWindow = new PopupWindow(popupView, popupWindowWidth, popupWindowHeight, focusable);
         popupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 500);
-
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                isPopupWindowShown = false;
+//                isPopupWindowShown = false;
                 Log.d("isPopupWindowShown=", (isPopupWindowShown ? "true" : "false"));
                 popupWindow.dismiss();
                 return true;
             }
         });
+
     }
 }

@@ -95,34 +95,65 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             app:alignItems="center"
-            app:justifyContent="space_around"
             android:background="@color/Beige"
+            app:flexDirection="column"
             >
-            <ImageView
-                android:id="@+id/powerImg"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/rounded_title"
-                android:padding="15dp"
-                android:src="@drawable/power_button" />
-            <az.plainpie.PieView
-                android:id="@+id/acByView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:percentage_size="30"
-                app:inner_pie_padding="20"
-                app:percentage="60"
-                />
-            <ImageView
-                android:id="@+id/optionImg"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="15dp"
-                android:src="@drawable/option_three_dot"
-                android:background="@drawable/rounded_title"
-                />
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:justifyContent="center"
+                >
+                <az.plainpie.PieView
+                    android:id="@+id/acByView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:percentage_size="30"
+                    app:inner_pie_padding="20"
+                    app:percentage="60"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flexDirection="row"
+                app:justifyContent="space_between"
+                app:alignItems="center"
+                >
+                <ImageView
+                    android:id="@+id/powerImg"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/rounded_title"
+                    android:padding="15dp"
+                    android:src="@drawable/power_button" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/acSlider"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="18"
+                    android:valueTo="30"
+                    android:value="24"
+                    android:stepSize="1"
+                    app:trackColorActive="@color/teal_200"
+                    app:trackColorInactive="@color/gray"
+                    app:thumbColor="@color/teal_200"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
         </com.google.android.flexbox.FlexboxLayout>
+
 
     </com.google.android.flexbox.FlexboxLayout>
 </LinearLayout>
+
+<!--<ImageView-->
+<!--android:id="@+id/optionImg"-->
+<!--android:layout_width="60dp"-->
+<!--android:layout_height="60dp"-->
+<!--android:padding="15dp"-->
+<!--android:src="@drawable/option_three_dot"-->
+<!--android:background="@drawable/rounded_title"-->
+<!--    />-->
 

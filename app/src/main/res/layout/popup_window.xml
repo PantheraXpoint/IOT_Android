@@ -16,7 +16,6 @@
         android:paddingTop="20dp"
         >
         <com.google.android.material.slider.Slider
-            android:id="@+id/acSlider"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:valueFrom="18"
