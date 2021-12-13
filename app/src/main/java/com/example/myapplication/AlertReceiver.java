@@ -34,6 +34,7 @@ public class AlertReceiver extends BroadcastReceiver {
         Log.d("Previous","signal");
 
     }
+
     private  void sendDataMQTT(String topic, String value){
         waiting_period = 3;
         send_message_again = false;
