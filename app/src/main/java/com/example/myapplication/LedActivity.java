@@ -25,6 +25,8 @@ import android.widget.ToggleButton;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.myapplication.ActivityController.HomeActivity;
 import com.example.myapplication.ActivityController.MainActivity;
+import com.example.myapplication.Observer.Observables;
+import com.example.myapplication.Observer.RepositoryObserver;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -46,7 +48,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LedActivity extends AppCompatActivity {
+public class LedActivity extends AppCompatActivity implements RepositoryObserver {
 
     int waiting_period = 0;
     boolean send_message_again = false;
@@ -55,11 +57,19 @@ public class LedActivity extends AppCompatActivity {
     boolean isOn;
     MQTTHelper mqttHelper;
     ImageView img_icon;
+
+    AlertReceiver receiver = AlertReceiver.getInstance();
+    private Observables observer;
     //
 //
 
     public String ledUrl = "https://io.adafruit.com/api/v2/taunhatquang/feeds/bbc-led";
 
+    @Override
+    public void onAlarmSent() {
+        Log.d("ALARM", "TURNING ON/OFF");
+        sendDataMQTT("taunhatquang/feeds/bbc-led","0");
+    }
 
 
     private class GetLastData extends AsyncTask<String,Void,String>
@@ -131,6 +141,7 @@ public class LedActivity extends AppCompatActivity {
                     lottie.playAnimation();
                 }
             }
+
             if (dialog.isShowing())
                 dialog.dismiss();
         }
@@ -146,6 +157,7 @@ public class LedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.led_activity);
+        receiver.registerObserver(this);
 
         lottie = findViewById(R.id.ledLottie);
 
