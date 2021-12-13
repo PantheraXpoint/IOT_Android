@@ -6,46 +6,123 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/ac_activity"
-    tools:context=".ActivityAC">
-
-    <LinearLayout
+    tools:context=".ActivityAC"
+    >
+<!--Header bar-->
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
-        <Switch
-            android:layout_width="1dp"
-            android:layout_height="1dp"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:alignItems="center"
+        app:justifyContent="space_between"
+        android:background="@color/Beige"
+        >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="vertical">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back_arrow"
+            />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/acLottie"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:scaleX="1.3"
-            android:scaleY="1.5"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_qb88rukr.json"/>
-    </LinearLayout>
+            android:background="@drawable/rounded_title"
+            android:padding="10dp"
+            android:text="AC"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/Azure"
+    </com.google.android.flexbox.FlexboxLayout>
+
+<!--    Body-->
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/acImg"
-            android:layout_gravity="center"
-            android:paddingBottom="120dp"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:src="@mipmap/led_off_round" />
-    </LinearLayout>
+        android:layout_height="fill_parent"
+        app:alignItems="center"
+        app:flexDirection="column"
+        app:justifyContent="space_between">
 
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="wrap_content"
+            android:layout_height="500dp"
+            app:alignItems="center"
+            app:flexDirection="column"
+            app:justifyContent="space_evenly">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/acLottie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_qb88rukr.json" />
+
+            <ImageView
+                android:layout_marginTop="-50dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:src="@drawable/ac_bg"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+
+<!--        <com.google.android.flexbox.FlexboxLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            app:flexDirection="column"-->
+<!--            app:justifyContent="center"-->
+<!--            app:alignItems="center"-->
+<!--            >-->
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:id="@+id/bgLottie"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                app:lottie_autoPlay="true"-->
+<!--                app:lottie_loop="true"-->
+<!--                app:lottie_url="https://assets3.lottiefiles.com/packages/lf20_beqsrlsb.json"-->
+<!--                />-->
+<!--        </com.google.android.flexbox.FlexboxLayout>-->
+
+<!--        Footer-->
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:alignItems="center"
+            app:justifyContent="space_around"
+            android:background="@color/Beige"
+            >
+            <ImageView
+                android:id="@+id/powerImg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_title"
+                android:padding="15dp"
+                android:src="@drawable/power_button" />
+            <az.plainpie.PieView
+                android:id="@+id/acByView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:percentage_size="30"
+                app:inner_pie_padding="20"
+                app:percentage="60"
+                />
+            <ImageView
+                android:id="@+id/optionImg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="15dp"
+                android:src="@drawable/option_three_dot"
+                android:background="@drawable/rounded_title"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </com.google.android.flexbox.FlexboxLayout>
 </LinearLayout>
 

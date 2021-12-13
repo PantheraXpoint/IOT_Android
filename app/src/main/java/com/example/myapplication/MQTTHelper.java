@@ -36,7 +36,7 @@ public class MQTTHelper {
     final String password = BuildConfig.PASSWORD;
 
     final String [] feeds = {
-            "humidity","temperature","bbc-led", "ac", "watering"
+            "humidity","temperature","bbc-led", "ac", "watering", "toggleac"
     };
 
 

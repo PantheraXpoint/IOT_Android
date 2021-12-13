@@ -20,7 +20,7 @@
             app:flexDirection="row"
             android:padding="10dp"
             app:justifyContent="space_between"
-            android:background="@color/MistyRose"
+            android:background="@color/Beige"
             >
             <ImageView
                 android:layout_width="30dp"
@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_palegoldenrod"
+                android:background="@drawable/rounded_title"
                 android:padding="10dp"
                 android:text="Temperature"
                 android:textSize="18dp"
@@ -49,7 +49,7 @@
             app:layout_marginStartPercent="5%"
             app:layout_marginTopPercent="10%"
             app:layout_widthPercent="90%"
-            android:background="@color/MistyRose"
+            android:background="@drawable/header_background"
             />
         <!--        Buttons-->
         <com.google.android.flexbox.FlexboxLayout

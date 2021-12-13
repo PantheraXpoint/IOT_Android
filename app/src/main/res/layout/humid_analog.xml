@@ -17,7 +17,7 @@
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/MistyRose"
+        android:background="@color/Beige"
         app:flexDirection="column"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
@@ -41,7 +41,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_palegoldenrod"
+                android:background="@drawable/rounded_title"
                 android:padding="10dp"
                 android:text="Humidity"
                 android:textSize="18dp"
@@ -73,7 +73,7 @@
                     app:scaleTextSize="20dp"
                     app:unitTextColor="@color/black"
                     app:unitTextSize="20dp"
-                    app:viewBg="@color/MistyRose"
+                    app:viewBg="@color/AliceBlue"
                     />
             </com.google.android.flexbox.FlexboxLayout>
             <!--Buttons-->
